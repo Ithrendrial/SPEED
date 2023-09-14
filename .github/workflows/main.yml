@@ -18,10 +18,11 @@ jobs:
       with:
         node-version: 14
 
+    - name: Change directory to backend
+      run: cd backend
+
     - name: Install dependencies
-      working-directory: ./speed/backend  # Set the working directory to the correct location
       run: npm ci
 
     - name: Run tests
-      working-directory: ./speed/backend  # Set the working directory to the correct location
       run: npm test
