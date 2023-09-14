@@ -2,12 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/main.ts",
+      "src": "src/app.module.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "backend/main.ts" },
-    { "src": "/(.*)", "dest": "frontend/.next/$1" }
+    { "src": "/(.*)", "dest": "frontend/page.tsx" }
   ]
 }
