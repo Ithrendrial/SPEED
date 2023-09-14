@@ -18,8 +18,10 @@ jobs:
       with:
         node-version: 14
 
-    - name: Install dependencies in the 'backend' directory
+    - name: Install dependencies
+      working-directory: ./backend
       run: npm ci --prefix backend
 
-    - name: Run tests in the 'backend' directory
+    - name: Run tests
+      working-directory: ./backend
       run: npm test --prefix backend
