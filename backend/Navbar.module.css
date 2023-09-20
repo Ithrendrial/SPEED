@@ -1,0 +1,38 @@
+.bar {
+    width: 100%;
+    background-color: #E5E7DE;
+    display: flex;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    margin: 0 min(2vw, 2vh) 0 min(2vw, 2vh);
+
+    font-family: LexendExa-SemiBold, sans-serif;
+    font-size: min(4vw, 6vh);
+    color: #334C1F;
+}
+
+.nav_wrapper {
+    display: flex;
+    width: 75%;
+    align-items: center;
+}
+
+.nav_items {
+    margin: min(2vw, 2vh);
+    font-family: Inter, sans-serif;
+    font-size: min(3vw, 4vh);
+    color: #334C1F;
+    cursor: pointer;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}

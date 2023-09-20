@@ -1,0 +1,49 @@
+.bar {
+    height: min(10vw, 9vh);
+    width: 100%;
+    display: flex;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15%;
+    margin: 0 min(2vw, 2vh) 0 0;
+
+    font-family: LexendExa-SemiBold, sans-serif;
+    font-size: min(4vw, 6vh);
+    font-weight: 900;
+}
+
+.nav_wrapper {
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+
+.nav_items {
+    margin: min(2vw, 2vh);
+    font-family: Inter, sans-serif;
+    font-size: min(3vw, 4vh);
+    cursor: pointer;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 35%;
+    font-size: min(3vw, 2.2vh);
+}
+
+.login_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.image {
+    height: 80%;
+    width: fit-content;
+    margin: 0 min(2vw, 3vh) 0 1vw;
+}
