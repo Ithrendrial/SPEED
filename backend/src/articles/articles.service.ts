@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { v4 as uuidv4 } from "uuid";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { Article } from "./schemas/articles.schema";
+import { Article } from "./schema/articles.schema";
 import { ArticlesRepository } from "./articles.repository";
 
 @Injectable()
