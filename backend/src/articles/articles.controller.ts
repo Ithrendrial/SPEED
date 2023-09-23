@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 
-import { Article } from './schemas/articles.schema';
+import { Article } from './schema/articles.schema';
 import { ArticlesService } from './articles.service';
 
 @Controller('articles')
