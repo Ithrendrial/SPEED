@@ -15,7 +15,7 @@ function Results() {
 
     useEffect(() => {
         axios
-            .get<Article[]>('http://localhost:3001/articles')
+            .get<Article[]>('https://speed-backend-seven.vercel.app/articles')
             .then((res) => {
                 setArticles(res.data);
             })
