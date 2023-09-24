@@ -1,0 +1,17 @@
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table, .th, .td {
+    border: 1px solid #ddd; /* Border color */
+}
+
+.th, .td {
+    padding: 8px; /* Cell padding */
+    text-align: left; /* Text alignment */
+}
+
+.th {
+    background-color: #f2f2f2; /* Header background color */
+}
