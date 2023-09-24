@@ -35,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <input type="text" />
         <br></br>
         <p>Password: </p>
-        <input type="text" />
+        <input type="password" />
         <br></br>
         <button>Submit</button>
       </form>
