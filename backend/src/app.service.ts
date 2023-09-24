@@ -7,6 +7,7 @@ export class AppService {
   }
 
   getAuthorization(): string {
+    console.log('autho');
     return 'Authorized';
   }
 }
