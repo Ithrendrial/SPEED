@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from '../dtos/create-user.dto';
 
 export type User = any;
 
@@ -18,5 +19,11 @@ export class UsersService {
   ];
   async findOne(username: string): Promise<User | undefined> {
     return this.users.find((user) => user.username === username);
+  }
+
+  async createUser(createUserDto: CreateUserDto) {
+    const { username, email, password } = createUserDto;
+    console.log(username, email, password);
+    return username;
   }
 }

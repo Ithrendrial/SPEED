@@ -1,35 +1,33 @@
 "use client";
-
-import style from "../../styles/LoginPage.module.css";
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import "@/styles/globals.css";
-import Link from "next/link";
+import style from "../../styles/SignUpPage.module.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-
-  async function signin(event) {
+  async function signup(event) {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:4000/auth/signin", {
+      const response = await fetch("http://localhost:4000/users/signup", {
         method: "POST",
         body: JSON.stringify({
           uname: username,
+          email: email,
           pass: password,
         }),
         headers: {
@@ -44,10 +42,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className={style.signInFormContainer}>
-      <form className={style.signInForm} onSubmit={signin}>
+    <div className={style.signUpFormContainer}>
+      <form className={style.signUpForm} onSubmit={signup}>
         <p>Username: </p>
-        <input type="text" value={username} onChange={handleUsernameChange} />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsernameChange}
+        />
+        <br></br>
+        <p>Email: </p>
+        <input
+          type="text"
+          placeholder="Username"
+          value={email}
+          onChange={handleEmailChange}
+        />
         <br></br>
         <p>Password: </p>
         <input
@@ -56,10 +67,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           onChange={handlePasswordChange}
         />
         <br></br>
+        <br></br>
         <button>Submit</button>
-        <br></br>
-        <br></br>
-        <Link href={"/signup"}>Sign Up</Link>
       </form>
     </div>
   );

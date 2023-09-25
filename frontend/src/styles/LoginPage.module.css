@@ -1,0 +1,12 @@
+.signInFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signInForm {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #000;
+}
