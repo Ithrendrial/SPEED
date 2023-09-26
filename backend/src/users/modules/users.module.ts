@@ -3,8 +3,8 @@ import { UsersService } from '../services/users.service';
 import { UsersController } from '../controllers/users.controller';
 
 @Module({
-  controllers: [UsersController],
-  providers: [UsersService],
-  exports: [UsersService],
+    controllers: [UsersController],
+    providers: [UsersService],
+    exports: [UsersService],
 })
 export class UsersModule {}

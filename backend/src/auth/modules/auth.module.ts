@@ -6,26 +6,29 @@ import { jwtConstants } from '../../constants/constants';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthGuard } from '../guards/auth.guard';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from '../stategies/local.strategy';
+import { LocalStrategy } from '../strategies/local.strategy';
+import { JwtStrategy } from '../strategies/jwt.strategy';
 
 @Module({
-  imports: [
-    UsersModule,
-    JwtModule.register({
-      global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '15m' },
-    }),
-    PassportModule,
-  ],
-  controllers: [AuthController],
-  providers: [
-    AuthService,
-    {
-      provide: 'APP_GUARD',
-      useClass: AuthGuard,
-    },
-    LocalStrategy,
-  ],
+    imports: [
+        UsersModule,
+        PassportModule,
+        JwtModule.register({
+            // global: true,
+            secret: jwtConstants.secret,
+            signOptions: { expiresIn: '60s' },
+        }),
+    ],
+    controllers: [AuthController],
+    providers: [
+        AuthService,
+        LocalStrategy,
+        JwtStrategy,
+        {
+            provide: 'APP_GUARD',
+            useClass: AuthGuard,
+        },
+    ],
+    exports: [AuthService],
 })
 export class AuthModule {}

@@ -24,20 +24,37 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   async function signin(event) {
     event.preventDefault();
+    let token;
 
     try {
-      const response = await fetch("http://localhost:4000/auth/signin", {
+      const response = await fetch("http://localhost:4000/auth/authorize", {
         method: "POST",
         body: JSON.stringify({
-          uname: username,
-          pass: password,
+          username: username,
+          password: password,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const authorization = await response.text();
-      console.log(authorization);
+      const jsonToken = await response.text();
+      console.log("Json Token: " + jsonToken);
+      token = JSON.parse(jsonToken);
+      console.log(token.access_token);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    try {
+      console.log(token);
+      const response = await fetch("http://localhost:4000/auth/profile", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token.access_token}`,
+        },
+      });
+      const user = await response.text();
+      console.log("User: " + user);
     } catch (error) {
       console.error("Error:", error);
     }
