@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({
           uname: username,
           email: email,
-          pass: password,
+          password: password,
         }),
         headers: {
           "Content-Type": "application/json",

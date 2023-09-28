@@ -1,5 +1,8 @@
 export class CreateUserDto {
-  readonly username: string;
-  readonly email: string;
-  readonly password: string;
+    uname: string;
+    readonly email: string;
+    password: string;
+    encryptPassword(hashedPassword: string): void {
+        this.password = hashedPassword;
+    }
 }

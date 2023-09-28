@@ -1,4 +1,4 @@
 export class UserDto {
-    readonly username: string;
+    readonly uname: string;
     readonly password: string;
 }

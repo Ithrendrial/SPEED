@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       const response = await fetch("http://localhost:4000/auth/authorize", {
         method: "POST",
         body: JSON.stringify({
-          username: username,
+          uname: username,
           password: password,
         }),
         headers: {
@@ -60,6 +60,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   }
 
+  async function getAll() {
+    try {
+      const response = await fetch("http://localhost:4000/users/all");
+      const user = await response.text();
+      console.log("User: " + user);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
     <div className={style.signInFormContainer}>
       <form className={style.signInForm} onSubmit={signin}>
@@ -77,7 +87,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <br></br>
         <br></br>
         <Link href={"/signup"}>Sign Up</Link>
+        <br></br>
+        <br></br>
       </form>
+      <button onClick={getAll}>Get all</button>
     </div>
   );
 }
