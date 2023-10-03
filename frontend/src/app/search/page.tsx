@@ -4,94 +4,86 @@ import style from "../../styles/SearchPage.module.css";
 import React, { useState, useEffect } from 'react';
 
 export default function Search() {
-  const [selectedMethodButton, setSelectedMethodButton] = useState('');
-  const [renderClaims, setRenderClaims] = useState(false);
-  const [selectedClaimButton, setSelectedClaimButton] = useState('');
-  const [claimValues, setClaimValues] = useState<string[]>([]);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
-  const handleMethodButtonClick = (value: string, associatedValues: string[]) => {
-    setSelectedMethodButton(value);
-    setRenderClaims(true);
-    setClaimValues(associatedValues);
-    setIsSubmitDisabled(true);
-  };
+    const [selectedMethod, setSelectedMethod] = useState<string>('');
+    const [selectedClaim, setSelectedClaim] = useState<string>('');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
+
 
     useEffect(() => {
-        if(selectedClaimButton !== ''){
+        if(selectedClaim !== ''){
             setIsSubmitDisabled(false);
         }
-    }, [selectedClaimButton]);
+    }, [selectedClaim]);
 
-    const handleClaimButtonClick = (claim: string) => {
-        setSelectedClaimButton(claim);
+    const handleMethodChange = (method: string) => {
+        setSelectedMethod(method);
+        setIsSubmitDisabled(true);
     };
 
-    const handleResultsButtonClick = () => {
-        const queryString = `?method=${selectedMethodButton}&claim=${selectedClaimButton}`;
+    const handleButtonClick = (claim: string) => {
+        setSelectedClaim(claim);
+    };
+
+    const handleSubmitButtonClick = () => {
+        const queryString = `?method=${selectedMethod}&claim=${selectedClaim}`;
 
         window.history.pushState(undefined, '', `/results${queryString}`);
         window.location.reload();
     };
 
+    const methodData = {
+        'Test-Last Development': ['Code Quality Improvement', 'Comprehensive Documentation', 'Client Satisfaction'],
+        'Agile Software Development': ['Faster Delivery', 'Adaptability', 'Customer Collaboration'],
+        'Kanban': ['Workflow Visualization', 'Reduced Waste', 'Efficiency'],
+        'Feature-Driven Development': ['Feature-Centric', 'Short Development Cycles', 'Client Collaboration'],
+        'Scrum': ['Sprint Planning', 'Daily Standup', 'Incremental Progress'],
+        'Continuous Integration': ['Automated Testing', 'Frequent Integration', 'Reduced Errors'],
+        'Test-Driven Development': ['Test-First Approach', 'Improved Code Quality', 'Rapid Feedback'],
+        'Extreme Programming': ['Continuous Feedback', 'Pair Programming', 'Collective Code Ownership'],
+        'Spiral Model': ['Risk Management', 'Iterative Development', 'Client Feedback'],
+        'Waterfall Model': ['Sequential Phases', 'Documentation-Driven', 'Inflexible'],
+        'Pair Programming': ['Collaborative Coding', 'Knowledge Sharing', 'Reduced Errors'],
+    };
+
   return (
       <>
         <div className="heading">SEARCH</div>
-          <div className={ style.subheading }>Software Engineering Method</div>
-          <div className={ style.methods }>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Test-Last Development', ['Code Quality Improvement', 'Comprehensive Documentation', 'Client Satisfaction'])}>
-                  Test-Last Development
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Agile Software Development', ['Faster Delivery', 'Adaptability', 'Customer Collaboration'])}>
-                  Agile Software Development
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Kanban', ['Workflow Visualization', 'Reduced Waste', 'Efficiency'])}>
-                  Kanban
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Feature-Driven Development', ['Feature-Centric', 'Short Development Cycles', 'Client Collaboration'])}>
-                  Feature-Driven Development
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Scrum', ['Sprint Planning', 'Daily Standup', 'Incremental Progress'])}>
-                  Scrum
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Continuous Integration', ['Automated Testing', 'Frequent Integration', 'Reduced Errors'])}>
-                  Continuous Integration
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Test-Driven Development', ['Test-First Approach', 'Improved Code Quality', 'Rapid Feedback'])}>
-                  Test-Driven Development
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Extreme Programming', ['Continuous Feedback', 'Pair Programming', 'Collective Code Ownership'])}>
-                  Extreme Programming
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Spiral Model', ['Risk Management', 'Iterative Development', 'Client Feedback'])}>
-                  Spiral Model
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Waterfall Model', ['Sequential Phases', 'Documentation-Driven', 'Inflexible'])}>
-                  Waterfall Model
-              </button>
-              <button className={ style.button } onClick={() => handleMethodButtonClick('Pair Programming', ['Collaborative Coding', 'Knowledge Sharing', 'Reduced Errors'])}>
-                  Pair Programming
-              </button>
-          </div>
+        <div className={ style.subheading }>Software Engineering Method</div>
+        <div className={ style.methods }>
+              {Object.keys(methodData).map((method) => (
+                  <label  className={`${selectedMethod === method ? style.label_checked : style.button}`} key={method}>
+                      <input
+                          type="radio"
+                          className={ style.hidden_radio }
+                          value={method}
+                          checked={selectedMethod === method}
+                          onChange={() => handleMethodChange(method)}
+                      />
+                      {method}
+                  </label>
+              ))}
+        </div>
 
-                {renderClaims && (
-                <div>
-                    <div className={ style.subheading }>Claim</div>
-                    <div className={ style.claims }>
-                  {claimValues.map((claim, index) => (
-                      <button
-                          key={ index }
-                          className={ style.button }
-                          onClick={() => setSelectedClaimButton(claim)}
-                      >
-                        {claim}
-                      </button>
-                  ))}
-                </div>
-                </div>
-                )}
 
-          <button className={ style.submit } onClick={ handleResultsButtonClick } disabled={ isSubmitDisabled }>Submit</button>
+        {selectedMethod && (
+            <>
+                <div className={ style.subheading }>Claim</div>
+                <div className={ style.claims }>
+                    {methodData[selectedMethod as keyof typeof methodData].map((claim: string) => (
+                        <button
+                            key={claim}
+                            className={style.button}
+                            onClick={() => handleButtonClick(claim)}
+                        >
+                            {claim}
+                        </button>
+                    ))}
+                </div>
+            </>
+        )}
+
+        <button className={ style.submit } onClick={ handleSubmitButtonClick } disabled={ isSubmitDisabled }>Submit</button>
       </>
   );
 }

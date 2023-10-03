@@ -18,5 +18,5 @@ export default function Layout({
         <Navbar isHome={ isHome }/>
         {children}
       </body>
-    </html>)
+    </html>);
 }
