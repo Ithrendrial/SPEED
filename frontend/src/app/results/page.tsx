@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import { createTheme, ThemeProvider, useTheme } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material';
 import axios from 'axios';
 import style from "../../styles/ResultsPage.module.css";
 
