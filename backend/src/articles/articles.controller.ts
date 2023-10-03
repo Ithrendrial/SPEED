@@ -30,7 +30,15 @@ export class ArticlesController {
                                                   createArticleDto.volume,
                                                   createArticleDto.issue,
                                                   createArticleDto.pages,
-                                                  createArticleDto.doi)
+                                                  createArticleDto.doi,
+                                                  createArticleDto.method,
+                                                  createArticleDto.claim,
+                                                  createArticleDto.research_type,
+                                                  createArticleDto.participant_type,
+                                                  createArticleDto.summary,
+                                                  createArticleDto.support,
+                                                  createArticleDto.rating)
+
     }
 
     @Patch(':articleId')

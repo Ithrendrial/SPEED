@@ -22,17 +22,58 @@ interface Article {
     participant_type: string[];
     summary: string[];
     support: string[];
+    rating: number[];
     publication_status: boolean;
 }
 
 function Results() {
     const [articles, setArticles] = useState<Article[]>([]);
+    const [selectedMethod, setSelectedMethod] = useState<string>("Method one");
+    const [selectedClaim, setSelectedClaim] = useState<string>("claim 1");
 
-    const data = articles.map((article) => ({
-        title: article.title,
-        authors: article.authors.join(', '),
-        summary: article.summary
-    }));
+    function formatDate(dateString: string): string {
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    }
+
+    const filteredArticles = useMemo(() => {
+        if (!selectedClaim) {
+            // If no claim is selected, return all articles
+            return articles;
+        }
+
+        // Filter articles that contain the selected claim in their claim array
+        return articles.filter((article) => article.claim.includes(selectedClaim));
+    }, [articles, selectedClaim]);
+
+
+    const data = filteredArticles.map((article) => {
+        const claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array
+        const source =
+            (article.journal_name ? `${article.journal_name}` : '') +
+            (article.volume ? (article.journal_name ? ', ' : '') + `Vol. ${article.volume}` : '') +
+            (article.issue && article.volume ? `(${article.issue}` : '') +
+            (article.issue && article.volume && article.pages ? `), pg. ${article.pages}` : '');
+
+        return {
+            title: article.title,
+            authors: article.authors.join(', '),
+            source: source,
+            publication_date: formatDate(article.publication_date),
+            doi: article.doi,
+            claim: selectedClaim, // Use the selected claim
+            research_type: claimIndex !== -1 ? article.research_type[claimIndex] : '', // Use the corresponding index if found
+            participant_type: claimIndex !== -1 ? article.participant_type[claimIndex] : '', // Use the corresponding index if found
+            support: claimIndex !== -1 ? article.support[claimIndex] : '', // Use the corresponding index if found
+            summary: article.summary,
+            rating: claimIndex !== -1 && article.rating && article.rating[claimIndex] ? `${article.rating[claimIndex]} / 5` : ''
+        };
+    });
 
         const columns = useMemo(() => [
                 {
@@ -58,12 +99,12 @@ function Results() {
                 {
                     accessorKey: 'doi',
                     header: 'DOI',
-                    size: 250
+                    size: 250,
                 },
                 {
                     accessorKey: 'claim',
                     header: 'Claim',
-                    size: 150
+                    size: 150,
                 },
                 {
                     accessorKey: 'research_type',
@@ -78,7 +119,7 @@ function Results() {
                 {
                     accessorKey: 'support',
                     header: 'Evidence',
-                    size: 150
+                    size: 150,
                 },
                 {
                     accessorKey: 'rating',
@@ -115,8 +156,8 @@ function Results() {
     return (
         <div className={ style.page }>
         <div className="heading"> SEARCH RESULTS </div>
-        <div className={ style.search_info }> "Placeholder method - placeholder claim" </div>
-            <ThemeProvider theme={tableTheme}>
+        <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div>
+            <ThemeProvider theme={ tableTheme }>
             <MaterialReactTable columns={ columns }
                                 data={ data }
                                 enableDensityToggle={ false }
@@ -127,6 +168,14 @@ function Results() {
                                 paginateExpandedRows={ false }
                                 enableColumnActions={ false }
                                 enableSorting={ false }
+
+                                muiTableContainerProps={{
+                                    sx: {
+                                        ".MuiTableContainer-root::after": {
+                                            height: '90vh',
+                                        }
+                                    }
+                                }}
 
                                 muiTableHeadCellProps={{
                                     sx: {
@@ -171,7 +220,7 @@ function Results() {
                                         <div className={style.subheading}>Summary </div>
                                         <div className={style.content}>{row.original.summary[0]}</div>
                                     </div>
-                                )} />
+                                )}></MaterialReactTable>
             </ThemeProvider>
         </div>
     );

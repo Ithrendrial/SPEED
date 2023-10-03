@@ -50,11 +50,11 @@ export class Article {
     @Prop([String])
     claim: string[];
 
-    @Prop()
-    research_type: string;
+    @Prop([String])
+    research_type: string[];
 
-    @Prop()
-    participant_type: string;
+    @Prop([String])
+    participant_type: string[];
 
     @Prop([String])
     summary: string[];
@@ -65,6 +65,9 @@ export class Article {
         default: 'neutral'
     })
     support: string[];
+
+    @Prop([Number])
+    rating: number[];
 
     @Prop()
     publication_status: boolean;

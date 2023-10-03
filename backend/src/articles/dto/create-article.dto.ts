@@ -7,4 +7,13 @@ export class CreateArticleDto {
     issue: number;
     pages: string;
     doi: string;
+    moderator_status: string;
+    method: string[];
+    claim: string[];
+    research_type: string[];
+    participant_type: string[];
+    summary: string[];
+    support: string[];
+    publication_status: boolean;
+    rating: number[];
 }
