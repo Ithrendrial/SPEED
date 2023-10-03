@@ -47,8 +47,9 @@ export default function Search() {
     };
 
   return (
-      <>
+      <div className={ style.page }>
         <div className="heading">SEARCH</div>
+          <div className={ style.options}>
         <div className={ style.subheading }>Software Engineering Method</div>
         <div className={ style.methods }>
               {Object.keys(methodData).map((method) => (
@@ -69,21 +70,22 @@ export default function Search() {
         {selectedMethod && (
             <>
                 <div className={ style.subheading }>Claim</div>
-                <div className={ style.claims }>
-                    {methodData[selectedMethod as keyof typeof methodData].map((claim: string) => (
-                        <button
-                            key={claim}
-                            className={style.button}
-                            onClick={() => handleButtonClick(claim)}
-                        >
-                            {claim}
-                        </button>
-                    ))}
-                </div>
+                    <div className={ style.claims }>
+                        {methodData[selectedMethod as keyof typeof methodData].map((claim: string) => (
+                            <button
+                                key={claim}
+                                className={style.button}
+                                onClick={() => handleButtonClick(claim)}
+                            >
+                                {claim}
+                            </button>
+                        ))}
+                    </div>
+
             </>
         )}
-
-        <button className={ style.submit } onClick={ handleSubmitButtonClick } disabled={ isSubmitDisabled }>Submit</button>
-      </>
+          </div>
+        <button className={ style.submit } onClick={ handleSubmitButtonClick } disabled={ isSubmitDisabled }>SEARCH</button>
+      </div>
   );
 }

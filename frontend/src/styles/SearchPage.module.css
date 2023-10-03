@@ -1,3 +1,7 @@
+.page {
+    padding: max(1vw, -2vh) min(2vw, 4vh) 0;
+}
+
 .hidden_radio {
     display: none;
 }
@@ -8,7 +12,7 @@
     color: white;
     padding: 10px 20px;
     text-align: center;
-    font-size: 20px;
+    font-size: min(3vw, 2.3vh);
     margin: 1vh 1vh;
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -20,7 +24,7 @@
     color: white;
     padding: 10px 20px;
     text-align: center;
-    font-size: 20px;
+    font-size: min(3vw, 2.3vh);
     margin: 1vh 1vh;
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -39,7 +43,7 @@
     color: white;
     padding: 10px 20px;
     text-align: center;
-    font-size: 25px;
+    font-size: min(3vw, 2.3vh);
     margin: 4px 2px;
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -54,21 +58,24 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 5vh;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 94%;
+    margin: 0 2.6vw 5vh 2.6vw;
 }
 
 .claims {
     justify-content: left;
 }
 
+.options{
+    margin-top: min(2vw, 4vh);
+}
+
 .subheading{
     font-family: LexendExa-SemiBold, sans-serif;
-    font-size: 2rem;
+    font-size: min(4vw, 3.5vh);
     color: #6E8C30;
     letter-spacing: min(0.1vw, 0.2vh);
     font-weight: 700;
-    margin-left: 5%;
+    width: 94%;
+    margin: 0 3vw 1vh 3vw;
 }
