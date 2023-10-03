@@ -18,11 +18,8 @@
 
 .subheading{
     font-family: LexendExa-SemiBold, sans-serif;
+    font-size: 1rem;
     color: #334C1F;
     letter-spacing: min(0.1vw, 0.2vh);
     font-weight: 700;
-}
-
-.content {
-
 }

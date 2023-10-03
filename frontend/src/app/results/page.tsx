@@ -2,9 +2,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import { Paper } from '@mui/material';
-import { IconButton } from '@mui/material';
-import { Box, Typography } from '@mui/material';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material';
 import axios from 'axios';
 import style from "../../styles/ResultsPage.module.css";
@@ -41,42 +38,52 @@ function Results() {
                 {
                     accessorKey: 'title',
                     header: 'Title',
+                    size: 200
                 },
                 {
                     accessorKey: 'authors',
                     header: 'Authors',
+                    size: 150
                 },
                 {
                     accessorKey: 'source',
                     header: 'Source',
+                    size: 200
                 },
                 {
                     accessorKey: 'publication_date',
                     header: 'Publication Date',
+                    size: 50
                 },
                 {
                     accessorKey: 'doi',
                     header: 'DOI',
+                    size: 250
                 },
                 {
                     accessorKey: 'claim',
                     header: 'Claim',
+                    size: 150
                 },
                 {
                     accessorKey: 'research_type',
                     header: 'Research Type',
+                    size: 200
                 },
                 {
                     accessorKey: 'participant_type',
                     header: 'Participant Type',
+                    size: 200
                 },
                 {
                     accessorKey: 'support',
                     header: 'Evidence',
+                    size: 150
                 },
                 {
                     accessorKey: 'rating',
                     header: 'Rating',
+                    size: 100
                 },
             ],
             [],
@@ -97,49 +104,13 @@ function Results() {
         () =>
             createTheme({
                 palette: {
-                    mode: 'light',
-                    primary: {
-                        main: '#6E8C30',
-                    },
                     background: {
-                        default: '#E5E7DE', // background color for the default background
-                    },
-                },
-                typography: {
-                    button: {
-                        textTransform: 'none', //customize typography styles for all buttons in table by default
-                        fontSize: '1.2rem',
-                    },
-                },
-                components: {
-                    MuiIconButton: {
-                        styleOverrides: {
-                            root: {
-                                color: '#334C1F',
-                            }
-                        }
-                    },
-
-                    MuiTooltip: {
-                        styleOverrides: {
-                            tooltip: {
-                                fontSize: '1.1rem', //override to make tooltip font size larger
-                            },
-                        },
-                    },
-                    MuiSwitch: {
-                        styleOverrides: {
-                            thumb: {
-                                color: '#334C1F', //change the color of the switch thumb in the columns show/hide menu to pink
-                            },
-                        },
+                        default: '#E5E7DE',
                     },
                 },
             }),
         [],
     );
-
-
 
     return (
         <div className={ style.page }>
@@ -154,19 +125,29 @@ function Results() {
                                 enableGlobalFilter={ false }
                                 enableExpandAll={ false }
                                 paginateExpandedRows={ false }
+                                enableColumnActions={ false }
+                                enableSorting={ false }
+
+                                muiTableHeadCellProps={{
+                                    sx: {
+                                        "& .Mui-TableHeadCell-Content": {
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            fontFamily: 'LexendExa-SemiBold, sans-serif',
+                                            color: '#334C1F',
+                                            letterSpacing: 'min(0.1vw, 0.2vh)',
+                                            fontWeight: '700',
+                                            fontSize: '1rem',
+                                            alignText: 'center'
+                                        },
+                                    },
+                                }}
 
                                 muiBottomToolbarProps={{
                                     sx: {
                                         position: 'absolute',
                                         bottom: '0',
-                                    },
-                                }}
-
-                                muiTableBodyRowProps={{
-                                    sx: {
-                                        "& .MuiTableCell-root": {
-                                            borderTop: '1px solid black'
-                                        }
+                                        background: '#eff1ea'
                                     },
                                 }}
 
@@ -190,7 +171,7 @@ function Results() {
                                         <div className={style.subheading}>Summary </div>
                                         <div className={style.content}>{row.original.summary[0]}</div>
                                     </div>
-                                )}/>
+                                )} />
             </ThemeProvider>
         </div>
     );
