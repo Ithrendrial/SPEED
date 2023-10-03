@@ -19,11 +19,25 @@ export class ArticlesService {
     }
 
     // Create a new article when given the title and authors
-    async createArticle(title: string, authors: string[]): Promise<Article> {
+    async createArticle(title: string, authors: string[], journal_name: string, publication_date: Date, volume: number, issue: number, pages: string, doi: string): Promise<Article> {
         return this.articlesRepository.create({
             articleId: uuidv4(),
             title,
-            authors: authors
+            authors: authors,
+            journal_name: journal_name,
+            publication_date: publication_date,
+            volume: volume,
+            issue: issue,
+            pages: pages,
+            doi: doi,
+            moderator_status: 'unmoderated', // default value
+            method: [],
+            claim: [],
+            research_type: "",
+            participant_type: "",
+            summary: [],
+            support: ['neutral'], // default value
+            publication_status: true
         })
     }
 
