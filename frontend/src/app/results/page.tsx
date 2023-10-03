@@ -28,8 +28,18 @@ interface Article {
 
 function Results() {
     const [articles, setArticles] = useState<Article[]>([]);
-    const [selectedMethod, setSelectedMethod] = useState<string>("Method one");
-    const [selectedClaim, setSelectedClaim] = useState<string>("claim 1");
+    const [selectedMethod, setSelectedMethod] = useState<string>('');
+    const [selectedClaim, setSelectedClaim] = useState<string>('');
+
+    useEffect(() => {
+        // Parse the query parameters from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+        const method = queryParams.get('method');
+        const claim = queryParams.get('claim');
+
+        setSelectedMethod(method || '');
+        setSelectedClaim(claim || '');
+    }, []);
 
     function formatDate(dateString: string): string {
         const options: Intl.DateTimeFormatOptions = {
