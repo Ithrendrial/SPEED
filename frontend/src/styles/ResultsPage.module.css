@@ -1,0 +1,25 @@
+.page {
+    height: 70vh;
+}
+
+.search_info {
+    font-family: LexendExa-Medium, sans-serif;
+    color: #6E8C30;
+    font-size: min(5vw, 3vh);
+    letter-spacing: 0.3vw;
+    margin: 0 0 0 3vw;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5vw;
+}
+
+.subheading{
+    font-family: LexendExa-SemiBold, sans-serif;
+    font-size: 1rem;
+    color: #334C1F;
+    letter-spacing: min(0.1vw, 0.2vh);
+    font-weight: 700;
+}
