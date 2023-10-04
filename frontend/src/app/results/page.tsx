@@ -92,17 +92,27 @@ function Results() {
                 {
                     accessorKey: 'title',
                     header: 'Title',
-                    size: 200
+                    size: 200,
+                    muiTableBodyCellProps: {
+                        sx: {
+                            textAlign: 'left',
+                        }
+                    },
                 },
                 {
                     accessorKey: 'authors',
                     header: 'Authors',
-                    size: 150
+                    size: 150,
+                    muiTableBodyCellProps: {
+                        sx: {
+                            textAlign: 'left',
+                        }
+                    },
                 },
                 {
                     accessorKey: 'source',
                     header: 'Source',
-                    size: 200
+                    size: 200,
                 },
                 {
                     accessorKey: 'publication_date',
@@ -133,6 +143,7 @@ function Results() {
                     accessorKey: 'support',
                     header: 'Evidence',
                     size: 150,
+
                 },
                 {
                     accessorKey: 'rating',
@@ -245,6 +256,12 @@ function Results() {
                                             height: 'min(10vw, 4vh)',
                                         },
                                     },
+                                }}
+
+                                muiTableBodyCellProps={{
+                                    sx: {
+                                        textAlign: 'center',
+                                    }
                                 }}
 
                                 displayColumnDefOptions={{
