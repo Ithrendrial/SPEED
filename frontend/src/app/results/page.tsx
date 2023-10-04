@@ -29,8 +29,8 @@ interface Article {
 
 function Results() {
     const [articles, setArticles] = useState<Article[]>([]);
-    const [selectedMethod, setSelectedMethod] = useState<string>("Method one");
-    const [selectedClaim, setSelectedClaim] = useState<string>("claim 1");
+    const [selectedMethod, setSelectedMethod] = useState<string>('');
+    const [selectedClaim, setSelectedClaim] = useState<string>('');
     let claimIndex = 0;
 
     function formatDate(dateString: string): string {
@@ -160,7 +160,8 @@ function Results() {
         <div className="heading">SEARCH RESULTS</div>
         <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div>
             <ThemeProvider theme={ tableTheme }>
-            <MaterialReactTable columns={ columns }
+            <MaterialReactTable
+                                columns={ columns }
                                 data={ data }
                                 enableDensityToggle={ false }
                                 enableTableFooter={ false }
@@ -208,7 +209,8 @@ function Results() {
                                         <div className={style.subheading}>Summary </div>
                                         <div className={style.content}>{row.original.summary[claimIndex]}</div>
                                     </div>
-                                )}></MaterialReactTable>
+                                )}
+                                ></MaterialReactTable>
             </ThemeProvider>
         </div>
     );
