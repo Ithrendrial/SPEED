@@ -162,6 +162,53 @@ function Results() {
                         default: '#E5E7DE',
                     },
                 },
+                components: {
+                    MuiSwitch: {
+                        styleOverrides: {
+                            switchBase: {
+                                color: "#334C1F",
+                                "&.Mui-checked": {
+                                    color: "#6E8C30"
+                                },
+                                "&.Mui-checked.Mui-disabled": {
+                                    color: "#6E8C30",
+                                    opacity: '0.2'
+                                },
+
+                                "&.Mui-checked+.MuiSwitch-track": {
+                                    backgroundColor: '#6E8C30',
+                                },
+                            },
+
+                            track: {
+                                backgroundColor: '#1b3600',
+                            }
+                        }
+                    },
+                    MuiButton: {
+                        styleOverrides: {
+                            textPrimary: {
+                                color: "#334C1F"
+                            }
+                        }
+                    },
+                    MuiSvgIcon: {
+                        styleOverrides: {
+                               root: {
+                                   color: "#334C1F"
+                               }
+                        }
+                    },
+                    MuiTypography: {
+                        styleOverrides: {
+                            body1: {
+                                "&.Mui-disabled": {
+                                    opacity: '0.5'
+                                },
+                            }
+                        }
+                    }
+                }
             }),
         [],
     );
@@ -198,6 +245,18 @@ function Results() {
                                             height: 'min(10vw, 4vh)',
                                         },
                                     },
+                                }}
+
+                                displayColumnDefOptions={{
+                                    'mrt-row-expand': {
+                                        muiTableHeadCellProps: {
+                                            sx: {
+                                                color: '#E5E7DE',
+                                                fontSize: '0.1px'
+                                            }
+                                        },
+                                    },
+
                                 }}
 
                                 muiTablePaperProps={{
