@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import {createTheme, ThemeProvider, Toolbar} from '@mui/material';
+import {createTheme, ThemeProvider } from '@mui/material';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import style from "../../styles/ResultsPage.module.css";
@@ -157,7 +157,7 @@ function Results() {
 
     return (
         <div className={ style.page }>
-        <div className="heading"> SEARCH RESULTS </div>
+        <div className="heading">SEARCH RESULTS</div>
         <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div>
             <ThemeProvider theme={ tableTheme }>
             <MaterialReactTable columns={ columns }
