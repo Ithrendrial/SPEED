@@ -1,12 +1,21 @@
+.background {
+  position: absolute;
+  bottom: 0;
+  height: calc(99.8vh - min(10vw, 9vh));
+  width: 99.8vw;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
 .signUpFormContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
 }
 
 .signUpForm {
   text-align: center;
   padding: 20px;
-  border: 1px solid #000;
+  background-color: #E5E7DE;
 }

@@ -2,11 +2,54 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
 }
 
 .signInForm {
-  text-align: center;
-  padding: 20px;
-  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  padding:  min(2vw, 2vh) min(4vw, 4vh) min(4vw, 4vh) min(4vw, 4vh);
+  background-color: #E5E7DE;
+  border-radius: min(2vw, 2vh);
+  width: min(45vw, 50vh);
+}
+
+.heading {
+  font-family: LexendExa-Medium, sans-serif;
+  color: #334C1F;
+  font-size: min(7vw, 5vh);
+  font-weight: 600;
+  letter-spacing: 0.3vw;
+}
+
+.subheading {
+  font-family: LexendExa-Medium, sans-serif;
+  font-size: min(5vw, 3vh);
+  margin-bottom: min(2vw, 2vh);
+}
+
+.input {
+  margin: 0 0 min(2vw, 2vh) 0;
+  height: min(4.5vw, 4.5vh);
+  padding: min(1vw, 1vh);
+  outline: none;
+  border: lightgray 1px solid;
+  border-radius: min(1vw, 1vh);
+}
+
+.submitButton {
+  background-color: #6E8C30;
+  color: white;
+  border-radius: min(0.8vw, 0.8vh);
+  padding: min(1vw, 1vh) min(2vw, 2vh);
+  width: fit-content;
+  font-weight: 500;
+  font-size: min(4vw, 2.2vh);
+}
+
+.signUpButton {
+  color: #334C1F;
+  width: fit-content;
+  text-decoration: underline;
+  height: fit-content;
 }

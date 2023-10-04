@@ -1,4 +1,5 @@
 import style from "../styles/Navbar.module.css";
+import styles from "../styles/SignUpPage.module.css"
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -6,15 +7,22 @@ import LoginGreen from "../styles/images/login-green.svg";
 import LoginWhite from "../styles/images/login-white.svg";
 import ProfileGreen from "../styles/images/logged-in-green.svg";
 import ProfileWhite from "../styles/images/logged-in-white.svg";
+import Login from "../components/Login";
 
 interface NavbarProps {
   isHome: boolean;
 }
 
 export default function Navbar(props: NavbarProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // User login state
+  const [loginClicked, setLoginClicked] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
   const [isModerator, setIsModerator] = useState(false); // User Moderator role state
   const [isAnalyst, setIsAnalyst] = useState(false); // User Analyst role state
+
+  const toggleLogin = () => {
+    setLoginClicked(!loginClicked);
+  };
 
   // Source for image determined by if nav bar is white or green, and whether user is logged in or not.
   const loginImageSrc = props.isHome
@@ -45,6 +53,7 @@ export default function Navbar(props: NavbarProps) {
   }
 
   return (
+<>
     <div className={style.bar} style={backgroundColor}>
       <Link className={style.title} style={textColor} href={"/"}>
         SPEED
@@ -74,11 +83,11 @@ export default function Navbar(props: NavbarProps) {
       </div>
       <div className={style.login}>
         {isLoggedIn ? (
-          <div className={style.login_wrapper} style={textColor}>
+          <div className={style.login_wrapper} style={textColor} onClick={ toggleLogin }>
             Name
           </div>
         ) : (
-          <div>Log in</div>
+          <div className={style.login_wrapper} style={textColor} onClick={ toggleLogin }>Log in</div>
         )}
 
         <Link href={"/login"}>
@@ -92,5 +101,7 @@ export default function Navbar(props: NavbarProps) {
         </Link>
       </div>
     </div>
+      {loginClicked ? <Login  children={ null }/> : null}
+      </>
   );
 }

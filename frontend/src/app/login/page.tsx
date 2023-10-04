@@ -11,18 +11,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (event) => {
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  async function signin(event) {
+  async function signin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let token;
 
