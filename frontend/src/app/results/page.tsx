@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import { createTheme, ThemeProvider } from '@mui/material';
+import {createTheme, ThemeProvider } from '@mui/material';
+import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import style from "../../styles/ResultsPage.module.css";
 
@@ -41,6 +42,7 @@ function Results() {
         setSelectedClaim(claim || '');
     }, []);
 
+
     function formatDate(dateString: string): string {
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
@@ -57,13 +59,13 @@ function Results() {
             return articles;
         }
 
-        // Filter articles that contain the selected claim in their claim array
+        // Add articles containing the claim into filteredArticles array to add to the table data
         return articles.filter((article) => article.claim.includes(selectedClaim));
     }, [articles, selectedClaim]);
 
 
     const data = filteredArticles.map((article) => {
-        const claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array
+         claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array
         const source =
             (article.journal_name ? `${article.journal_name}` : '') +
             (article.volume ? (article.journal_name ? ', ' : '') + `Vol. ${article.volume}` : '') +
@@ -81,7 +83,7 @@ function Results() {
             participant_type: claimIndex !== -1 ? article.participant_type[claimIndex] : '', // Use the corresponding index if found
             support: claimIndex !== -1 ? article.support[claimIndex] : '', // Use the corresponding index if found
             summary: article.summary,
-            rating: claimIndex !== -1 && article.rating && article.rating[claimIndex] ? `${article.rating[claimIndex]} / 5` : ''
+            rating: claimIndex !== -1 && article.rating && article.rating[claimIndex] ? <div className={ style.rating }><StarRatings rating={ article.rating[claimIndex] } starDimension="1.2rem" starSpacing="0.1rem" starRatedColor="rgb(238, 198, 31)"/></div> : <StarRatings rating={ 0 } starDimension="1.2rem" starSpacing="0.1rem"/>
         };
     });
 
@@ -134,7 +136,7 @@ function Results() {
                 {
                     accessorKey: 'rating',
                     header: 'Rating',
-                    size: 100
+                    size: 150,
                 },
             ],
             [],
@@ -142,7 +144,7 @@ function Results() {
 
     useEffect(() => {
         axios
-            .get<Article[]>('http://localhost:3001/articles')
+            .get<Article[]>('https://speed-backend-seven.vercel.app/articles')
             .then((res) => {
                 setArticles(res.data);
             })
@@ -165,10 +167,11 @@ function Results() {
 
     return (
         <div className={ style.page }>
-        <div className="heading"> SEARCH RESULTS </div>
+        <div className="heading">SEARCH RESULTS</div>
         <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div>
             <ThemeProvider theme={ tableTheme }>
-            <MaterialReactTable columns={ columns }
+            <MaterialReactTable
+                                columns={ columns }
                                 data={ data }
                                 enableDensityToggle={ false }
                                 enableTableFooter={ false }
@@ -178,14 +181,7 @@ function Results() {
                                 paginateExpandedRows={ false }
                                 enableColumnActions={ false }
                                 enableSorting={ false }
-
-                                muiTableContainerProps={{
-                                    sx: {
-                                        ".MuiTableContainer-root::after": {
-                                            height: '90vh',
-                                        }
-                                    }
-                                }}
+                                enablePagination={ false }
 
                                 muiTableHeadCellProps={{
                                     sx: {
@@ -197,16 +193,9 @@ function Results() {
                                             letterSpacing: 'min(0.1vw, 0.2vh)',
                                             fontWeight: '700',
                                             fontSize: '1rem',
-                                            alignText: 'center'
+                                            alignText: 'center',
+                                            height: 'min(10vw, 4vh)',
                                         },
-                                    },
-                                }}
-
-                                muiBottomToolbarProps={{
-                                    sx: {
-                                        position: 'absolute',
-                                        bottom: '0',
-                                        background: '#eff1ea'
                                     },
                                 }}
 
@@ -228,9 +217,10 @@ function Results() {
                                 renderDetailPanel={({ row }) => (
                                     <div className={style.details}>
                                         <div className={style.subheading}>Summary </div>
-                                        <div className={style.content}>{row.original.summary[0]}</div>
+                                        <div className={style.content}>{row.original.summary[claimIndex]}</div>
                                     </div>
-                                )}></MaterialReactTable>
+                                )}
+                                ></MaterialReactTable>
             </ThemeProvider>
         </div>
     );

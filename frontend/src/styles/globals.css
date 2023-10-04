@@ -16,6 +16,7 @@ body {
 }
 
 ::-webkit-scrollbar {
+  bottom: 0;
   height: 1.7vh;
 }
 
