@@ -33,6 +33,17 @@ function Results() {
     const [selectedClaim, setSelectedClaim] = useState<string>('');
     let claimIndex = 0;
 
+    useEffect(() => {
+        // Parse the query parameters from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+        const method = queryParams.get('method');
+        const claim = queryParams.get('claim');
+
+        setSelectedMethod(method || '');
+        setSelectedClaim(claim || '');
+    }, []);
+
+
     function formatDate(dateString: string): string {
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
@@ -55,7 +66,7 @@ function Results() {
 
 
     const data = filteredArticles.map((article) => {
-         claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array
+        claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array
         const source =
             (article.journal_name ? `${article.journal_name}` : '') +
             (article.volume ? (article.journal_name ? ', ' : '') + `Vol. ${article.volume}` : '') +
