@@ -4,10 +4,14 @@ import style from "../styles/LoginPage.module.css";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import "@/styles/globals.css";
-import Link from "next/link";
 import styles from "@/styles/SignUpPage.module.css";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface LogInProps {
+    toggleSignUpState: (e: React.MouseEvent, isClicked: boolean) => void;
+    backgroundPressed: (e: React.MouseEvent, isClicked: boolean) => void;
+}
+
+export default function SignUp(props: LogInProps) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -71,9 +75,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <div className={styles.background}>
-        <div className={style.signInFormContainer}>
-            <form className={style.signInForm} onSubmit={signin}>
+        <div className={styles.background} onClick={(e) => props.backgroundPressed(e, true)}>
+        <div className={style.signInFormContainer} >
+            <form className={style.signInForm} onSubmit={signin} onClick={(e) => e.stopPropagation()}>
                 <div className={style.heading}>SPEED</div>
                 <div className={style.subheading}>Log in</div>
                 <input
@@ -90,7 +94,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     onChange={handlePasswordChange}
                 />
                 <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'end'}}>
-                    <Link className={style.signUpButton} href={"/signup"}>Sign Up</Link>
+                    <div className={style.signUpButton} onClick={(e) => props.toggleSignUpState(e, true)}>Sign Up</div>
                     <button className={style.submitButton}>Log In</button>
                 </div>
             </form>

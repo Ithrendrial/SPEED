@@ -7,19 +7,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsernameChange = (event) => {
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
-  async function signup(event) {
+  async function signup(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
@@ -44,25 +44,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={style.signUpFormContainer}>
       <form className={style.signUpForm} onSubmit={signup}>
-        <p>Username: </p>
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={handleUsernameChange}
         />
-        <br></br>
-        <p>Email: </p>
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Email"
           value={email}
           onChange={handleEmailChange}
         />
-        <br></br>
-        <p>Password: </p>
         <input
           type="password"
+          placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
         />

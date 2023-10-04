@@ -8,21 +8,38 @@ import LoginWhite from "../styles/images/login-white.svg";
 import ProfileGreen from "../styles/images/logged-in-green.svg";
 import ProfileWhite from "../styles/images/logged-in-white.svg";
 import Login from "../components/Login";
+import SignUp from "../components/SignUp";
 
 interface NavbarProps {
   isHome: boolean;
 }
 
 export default function Navbar(props: NavbarProps) {
-  const [loginClicked, setLoginClicked] = useState(false);
+  const [logInClicked, setLogInClicked] = useState(false);
+  const [signUpClicked, setSignUpClicked] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
   const [isModerator, setIsModerator] = useState(false); // User Moderator role state
   const [isAnalyst, setIsAnalyst] = useState(false); // User Analyst role state
 
   const toggleLogin = () => {
-    setLoginClicked(!loginClicked);
+    setLogInClicked(!logInClicked);
   };
+
+  const backgroundPressed = () => {
+    setSignUpClicked(false);
+    setLogInClicked(false);
+  }
+
+  const toggleSignUpState = () => {
+    setSignUpClicked(true);
+    setLogInClicked(false);
+  }
+
+  const toggleLogInState = () => {
+    setLogInClicked(true);
+    setSignUpClicked(false);
+  }
 
   // Source for image determined by if nav bar is white or green, and whether user is logged in or not.
   const loginImageSrc = props.isHome
@@ -101,7 +118,10 @@ export default function Navbar(props: NavbarProps) {
         </Link>
       </div>
     </div>
-      {loginClicked ? <Login  children={ null }/> : null}
+      {logInClicked ? <Login toggleSignUpState={() => toggleSignUpState()}
+                             backgroundPressed={() => backgroundPressed()}/> : null}
+      {signUpClicked ? <SignUp toggleLogInState={() => toggleLogInState()}
+                               backgroundPressed={() => backgroundPressed()}/> : null}
       </>
   );
 }
