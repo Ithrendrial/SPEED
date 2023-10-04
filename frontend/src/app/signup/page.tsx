@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import style from "../../styles/SignUpPage.module.css";
+import style from "../../styles/LoginPage.module.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState("");

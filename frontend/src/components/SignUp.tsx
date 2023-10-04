@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import styles from "@/styles/SignUpPage.module.css";
 import style from "../styles/LoginPage.module.css";
 
 interface SignUpProps {
@@ -48,7 +47,7 @@ export default function SignUp(props: SignUpProps) {
     }
 
     return (
-        <div className={styles.background} onClick={(e) => props.backgroundPressed(e, true)}>
+        <div className={style.background} onClick={(e) => props.backgroundPressed(e, true)}>
             <div className={style.signInFormContainer}>
                 <form className={style.signInForm} onSubmit={signup} onClick={(e) => e.stopPropagation()}>
                     <div className={style.heading}>SPEED</div>

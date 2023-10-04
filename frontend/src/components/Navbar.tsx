@@ -1,5 +1,4 @@
 import style from "../styles/Navbar.module.css";
-import styles from "../styles/SignUpPage.module.css"
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -107,15 +106,15 @@ export default function Navbar(props: NavbarProps) {
           <div className={style.login_wrapper} style={textColor} onClick={ toggleLogin }>Log in</div>
         )}
 
-        <Link href={"/login"}>
           <Image
-            className={style.image}
-            src={loginImageSrc}
-            width={300}
-            height={300}
-            alt="Log In"
+              className={style.image}
+              src={loginImageSrc}
+              onClick={toggleLogInState}
+              width={300}
+              height={300}
+              alt="Log In"
           />
-        </Link>
+
       </div>
     </div>
       {logInClicked ? <Login toggleSignUpState={() => toggleSignUpState()}

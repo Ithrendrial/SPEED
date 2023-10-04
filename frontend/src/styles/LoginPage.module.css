@@ -1,3 +1,12 @@
+.background {
+  position: absolute;
+  bottom: 0;
+  height: calc(99.8vh - min(10vw, 9vh));
+  width: 99.8vw;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
 .signInFormContainer {
   display: flex;
   justify-content: center;
@@ -45,6 +54,7 @@
   width: fit-content;
   font-weight: 500;
   font-size: min(4vw, 2.2vh);
+  cursor: pointer;
 }
 
 .signUpButton {
@@ -52,4 +62,5 @@
   width: fit-content;
   text-decoration: underline;
   height: fit-content;
+  cursor: pointer;
 }

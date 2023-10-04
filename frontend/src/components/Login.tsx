@@ -4,7 +4,6 @@ import style from "../styles/LoginPage.module.css";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import "@/styles/globals.css";
-import styles from "@/styles/SignUpPage.module.css";
 
 interface LogInProps {
     toggleSignUpState: (e: React.MouseEvent, isClicked: boolean) => void;
@@ -75,7 +74,7 @@ export default function SignUp(props: LogInProps) {
     }
 
     return (
-        <div className={styles.background} onClick={(e) => props.backgroundPressed(e, true)}>
+        <div className={style.background} onClick={(e) => props.backgroundPressed(e, true)}>
         <div className={style.signInFormContainer} >
             <form className={style.signInForm} onSubmit={signin} onClick={(e) => e.stopPropagation()}>
                 <div className={style.heading}>SPEED</div>
