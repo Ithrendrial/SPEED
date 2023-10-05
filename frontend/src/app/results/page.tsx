@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import {createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import style from "../../styles/ResultsPage.module.css";
 
-interface Article {
+interface Article { // Types for Article object
     articleId: string;
     title: string;
     authors: string[];
@@ -44,6 +44,7 @@ function Results() {
     }, []);
 
 
+    // Converts the date value into a string and formats it to display in dd MMM YYYY //
     function formatDate(dateString: string): string {
         const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
@@ -54,6 +55,8 @@ function Results() {
         return date.toLocaleDateString(undefined, options);
     }
 
+    // Take all values retrieved from the database and save any that match the selected claim into a "filteredArticles" array. //
+    // Only the filtered articles are passed into the table to be displayed.                                                   //
     const filteredArticles = useMemo(() => {
         if (!selectedClaim) {
             // If no claim is selected, return all articles
@@ -65,15 +68,19 @@ function Results() {
     }, [articles, selectedClaim]);
 
 
+    // Map elements in filtered articles into wanted format for the table and return the attributes displayed in the table, //
+    // formatted correctly, into the appropriate columns.                                                                   //
     const data = filteredArticles.map((article) => {
-        claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array
-        const source =
+
+        claimIndex = article.claim.indexOf(selectedClaim); // Find the index of selectedClaim in the claim array to use in other array types like support
+
+        const source = // Take journal name, volume, and issue and format into the source, with variations in case volume, issue, or pages are missing
             (article.journal_name ? `${article.journal_name}` : '') +
             (article.volume ? (article.journal_name ? ', ' : '') + `Vol. ${article.volume}` : '') +
             (article.issue && article.volume ? `(${article.issue}` : '') +
             (article.issue && article.volume && article.pages ? `), pg. ${article.pages}` : '');
 
-        return {
+        return { // Return table data
             title: article.title,
             authors: article.authors.join(', '),
             source: source,
@@ -88,132 +95,135 @@ function Results() {
         };
     });
 
-        const columns = useMemo(() => [
-                {
-                    accessorKey: 'title',
-                    header: 'Title',
-                    size: 200,
-                    muiTableBodyCellProps: {
-                        sx: {
-                            textAlign: 'left',
-                        }
-                    },
+    // Table header keys, text value, and style props //
+    const columns = useMemo(() => [
+            {
+                accessorKey: 'title',
+                header: 'Title',
+                size: 200,
+                muiTableBodyCellProps: {
+                    sx: {
+                        textAlign: 'left', // Title data cells are aligned left, against the default center
+                    }
                 },
-                {
-                    accessorKey: 'authors',
-                    header: 'Authors',
-                    size: 150,
-                    muiTableBodyCellProps: {
-                        sx: {
-                            textAlign: 'left',
-                        }
-                    },
+            },
+            {
+                accessorKey: 'authors',
+                header: 'Authors',
+                size: 150,
+                muiTableBodyCellProps: {
+                    sx: {
+                        textAlign: 'left', // Authors data cells are aligned left, against the default center
+                    }
                 },
-                {
-                    accessorKey: 'source',
-                    header: 'Source',
-                    size: 200,
-                },
-                {
-                    accessorKey: 'publication_date',
-                    header: 'Publication Date',
-                    size: 50
-                },
-                {
-                    accessorKey: 'doi',
-                    header: 'DOI',
-                    size: 250,
-                },
-                {
-                    accessorKey: 'claim',
-                    header: 'Claim',
-                    size: 150,
-                },
-                {
-                    accessorKey: 'research_type',
-                    header: 'Research Type',
-                    size: 200
-                },
-                {
-                    accessorKey: 'participant_type',
-                    header: 'Participant Type',
-                    size: 200
-                },
-                {
-                    accessorKey: 'support',
-                    header: 'Evidence',
-                    size: 150,
+            },
+            {
+                accessorKey: 'source',
+                header: 'Source',
+                size: 200,
+            },
+            {
+                accessorKey: 'publication_date',
+                header: 'Publication Date',
+                size: 50
+            },
+            {
+                accessorKey: 'doi',
+                header: 'DOI',
+                size: 250,
+            },
+            {
+                accessorKey: 'claim',
+                header: 'Claim',
+                size: 150,
+            },
+            {
+                accessorKey: 'research_type',
+                header: 'Research Type',
+                size: 200
+            },
+            {
+                accessorKey: 'participant_type',
+                header: 'Participant Type',
+                size: 200
+            },
+            {
+                accessorKey: 'support',
+                header: 'Evidence',
+                size: 150,
 
-                },
-                {
-                    accessorKey: 'rating',
-                    header: 'Rating',
-                    size: 150,
-                },
-            ],
-            [],
-        );
+            },
+            {
+                accessorKey: 'rating',
+                header: 'Rating',
+                size: 150,
+            },
+        ],
+        [],
+    );
 
+    // Retrieve data from the database //
     useEffect(() => {
         axios
             .get<Article[]>('https://speed-backend-seven.vercel.app/articles')
             .then((res) => {
-                setArticles(res.data);
+                setArticles(res.data); // Create Article objects with data retrieved
             })
             .catch(() => {
-                console.log('Error from Results');
+                console.log('Error from Results'); // Catch if there is an error reading from the database
             });
     }, []);
 
+    // Table styling //
     const tableTheme = useMemo(
         () =>
             createTheme({
                 palette: {
                     background: {
-                        default: '#E5E7DE',
+                        default: '#E5E7DE', // Table background colour
                     },
                 },
                 components: {
                     MuiSwitch: {
                         styleOverrides: {
                             switchBase: {
-                                color: "#334C1F",
+                                color: "#334C1F", // Colour of unchecked toggle thumb
                                 "&.Mui-checked": {
-                                    color: "#6E8C30"
+                                    color: "#6E8C30" // Colour of checked toggle thumb
                                 },
-                                "&.Mui-checked.Mui-disabled": {
+                                "&.Mui-checked.Mui-disabled": { // Styles of disabled, checked toggle thumb for expand column
                                     color: "#6E8C30",
                                     opacity: '0.2'
                                 },
 
                                 "&.Mui-checked+.MuiSwitch-track": {
-                                    backgroundColor: '#6E8C30',
+                                    backgroundColor: '#6E8C30', // Track colour for checked toggle
                                 },
                             },
 
                             track: {
-                                backgroundColor: '#1b3600',
+                                backgroundColor: '#1b3600', // Track colour for unchecked toggle
                             }
                         }
                     },
                     MuiButton: {
                         styleOverrides: {
                             textPrimary: {
-                                color: "#334C1F"
+                                color: "#334C1F" // Colour of button text (Hide/show all)
                             }
                         }
                     },
                     MuiSvgIcon: {
                         styleOverrides: {
                                root: {
-                                   color: "#334C1F"
+                                   color: "#334C1F" // Colour of button icons
                                }
                         }
                     },
                     MuiTypography: {
                         styleOverrides: {
                             body1: {
-                                "&.Mui-disabled": {
+                                "&.Mui-disabled": { // Colour of disabled button text, for expand column label
                                     opacity: '0.5'
                                 },
                             }
@@ -227,22 +237,22 @@ function Results() {
     return (
         <div className={ style.page }>
         <div className="heading">SEARCH RESULTS</div>
-        <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div>
-            <ThemeProvider theme={ tableTheme }>
+        <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div> {/* Display chosen method and claim passed from search page */}
+            <ThemeProvider theme={ tableTheme }> {/* Add table styling defined earlier */}
             <MaterialReactTable
-                                columns={ columns }
-                                data={ data }
-                                enableDensityToggle={ false }
-                                enableTableFooter={ false }
-                                enableFullScreenToggle={ false }
-                                enableGlobalFilter={ false }
-                                enableExpandAll={ false }
-                                paginateExpandedRows={ false }
-                                enableColumnActions={ false }
-                                enableSorting={ false }
-                                enablePagination={ false }
+                                columns={ columns } // Define table columns
+                                data={ data } // Pass in table data
+                                enableDensityToggle={ false } // Remove the ability to change table density (row padding)
+                                enableTableFooter={ false } // Remove table footer
+                                enableFullScreenToggle={ false } // Remove ability to set full screen
+                                enableGlobalFilter={ false } // Remove search function
+                                enableExpandAll={ false } // Remove ability to expand all rows at once
+                                paginateExpandedRows={ false } // Remove summary from being counted as an extra row for pagination
+                                enableColumnActions={ false } // Remove column header menus
+                                enableSorting={ false } // Remove column sorting
+                                enablePagination={ false } // Remove pagination
 
-                                muiTableHeadCellProps={{
+                                muiTableHeadCellProps={{ // Styling for table header cells
                                     sx: {
                                         "& .Mui-TableHeadCell-Content": {
                                             display: 'flex',
@@ -260,13 +270,13 @@ function Results() {
 
                                 muiTableBodyCellProps={{
                                     sx: {
-                                        textAlign: 'center',
+                                        textAlign: 'center', // Center text inside table data cells
                                     }
                                 }}
 
                                 displayColumnDefOptions={{
                                     'mrt-row-expand': {
-                                        muiTableHeadCellProps: {
+                                        muiTableHeadCellProps: { // Styling for expanded row header
                                             sx: {
                                                 color: '#E5E7DE',
                                                 fontSize: '0.1px'
@@ -277,21 +287,21 @@ function Results() {
                                 }}
 
                                 muiTablePaperProps={{
-                                    elevation: 0,
+                                    elevation: 0, // Removes table box shadow
                                     sx: {
                                         height: "70vh",
                                         margin: "0",
-                                        background: '#E5E7DE',
+                                        background: '#E5E7DE', // Changing styling for table wrapper
                                     },
                                 }}
 
                                 muiTableDetailPanelProps={{
                                     sx: {
-                                        background: '#E5E7DE',
+                                        background: '#E5E7DE',  // Background colour of expanded row (for summary)
                                     },
                                 }}
 
-                                renderDetailPanel={({ row }) => (
+                                renderDetailPanel={({ row }) => ( // Content of expanded row (for summary) as a jsx component
                                     <div className={style.details}>
                                         <div className={style.subheading}>Summary </div>
                                         <div className={style.content}>{row.original.summary[claimIndex]}</div>
