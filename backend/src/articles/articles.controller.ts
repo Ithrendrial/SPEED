@@ -23,7 +23,22 @@ export class ArticlesController {
 
     @Post()
     async createArticle(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
-        return this.articlesService.createArticle(createArticleDto.title, createArticleDto.authors)
+        return this.articlesService.createArticle(createArticleDto.title,
+                                                  createArticleDto.authors,
+                                                  createArticleDto.journal_name,
+                                                  createArticleDto.publication_date,
+                                                  createArticleDto.volume,
+                                                  createArticleDto.issue,
+                                                  createArticleDto.pages,
+                                                  createArticleDto.doi,
+                                                  createArticleDto.method,
+                                                  createArticleDto.claim,
+                                                  createArticleDto.research_type,
+                                                  createArticleDto.participant_type,
+                                                  createArticleDto.summary,
+                                                  createArticleDto.support,
+                                                  createArticleDto.rating)
+
     }
 
     @Patch(':articleId')
