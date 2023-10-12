@@ -1,0 +1,42 @@
+.background {
+    position: absolute;
+    top: min(10vw, 9vh);
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+}
+
+.popUpContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(60vw, 50vh);
+    transform: translate(-50%, -50%);
+    border: #b6aea1 1px solid;
+    border-radius: min(2vw, 2vh);
+    background: white;
+    padding:  min(6vw, 4vh) min(8vw, 6vh) min(6vw, 4vh) min(8vw, 6vh);
+}
+
+.text {
+    font-family: LexendExa-Medium, sans-serif;
+    font-size: min(5vw, 3.5vh);
+    letter-spacing: 0.2vw;
+    font-weight: 500;
+    margin-bottom: min(2vw, 1.5vh);
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    margin: 3vh 0;
+}
+
+.buttons {
+    align-self: end;
+}
