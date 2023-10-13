@@ -53,8 +53,8 @@ export default function Navbar(props: NavbarProps) {
           <Link className={style.nav_items} style={ textColor } href={ "/submit" }>SUBMIT</Link>
 
           {/* If the user is a moderator or analyst, show additional nav item. */}
-          {isModerator ? <div className={style.nav_items} style={ textColor }>ANALYSE</div> : null}
-          {isAnalyst ? <div className={style.nav_items} style={ textColor }>ANALYSE</div> : null}
+          {isModerator ? <Link className={style.nav_items} style={ textColor } href={ "/moderate" }>MODERATE</Link> : null}
+          {isAnalyst ? <Link className={style.nav_items} style={ textColor } href={ "/analyse" }>ANALYSE</Link> : null}
         </div>
         <div className={style.login}>
           {isLoggedIn ?<div className={ style.login_wrapper} style={ textColor }>
