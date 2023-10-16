@@ -19,6 +19,7 @@ export class UsersController {
     @HttpCode(HttpStatus.OK)
     @Post('signup')
     signUp(@Body() createUserDto: CreateUserDto) {
+        console.log(createUserDto.radioOption);
         return this.usersService.createUser(createUserDto);
     }
 

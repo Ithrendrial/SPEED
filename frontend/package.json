@@ -25,6 +25,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "@types/testing-library__jest-dom": "^6.0.0",
     "react-icons": "^4.11.0"
   }
 }

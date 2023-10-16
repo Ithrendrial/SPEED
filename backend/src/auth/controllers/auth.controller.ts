@@ -8,7 +8,7 @@ import {
     Request,
     UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '../guards/auth.guard';
+// import { AuthGuard } from '../guards/auth.guard';
 import { AuthService } from '../services/auth.service';
 import { Public } from '../../declerations/routeDeclarations';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
@@ -22,7 +22,11 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Post('authorize')
     authorize(@Body() userDto: UserDto) {
-        return this.authService.authorize(userDto.uname, userDto.password);
+        return this.authService.authorize(
+            userDto.uname,
+            userDto.password,
+            userDto.radioOption,
+        );
     }
 
     @UseGuards(JwtAuthGuard)

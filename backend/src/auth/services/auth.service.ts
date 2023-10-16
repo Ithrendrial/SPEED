@@ -11,10 +11,12 @@ export class AuthService {
     ) {}
 
     // check sign in details are correct and return access_token
-    async authorize(username: string, pass: string): Promise<any> {
+    async authorize(
+        username: string,
+        pass: string,
+        type: string,
+    ): Promise<any> {
         const user = await this.usersService.validate(username);
-        console.log(user);
-        console.log(pass);
         const result = await bcrypt
             .compare(pass, user?.password)
             .then((result) => {
@@ -24,8 +26,7 @@ export class AuthService {
                 console.log(err);
             });
 
-        console.log(result);
-        if (!result) {
+        if (!result || type !== user?.radioOption) {
             console.log('error');
             throw new UnauthorizedException();
         }
