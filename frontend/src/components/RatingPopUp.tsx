@@ -37,7 +37,7 @@ export default function RatingPopUp(props: RatingPopUpProps) {
                 console.error('Error updating article:', error);
             });
 
-        // props.backgroundPressed(e, true);
+         props.backgroundPressed(e, true);
     }
 
     return (
