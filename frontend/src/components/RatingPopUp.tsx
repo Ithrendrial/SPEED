@@ -29,7 +29,7 @@ export default function RatingPopUp(props: RatingPopUpProps) {
         }
 
         axios
-            .patch('http://localhost:3001/articles/' + props.articleId, updatedRatingArray)
+            .patch('https://speed-backend-seven.vercel.app/articles/' + props.articleId, updatedRatingArray)
             .then((response) => {
                 console.log('Article updated successfully:', response.data);
             })

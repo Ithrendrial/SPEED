@@ -11,7 +11,7 @@
 
 .submit_button_wrapper {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-top: 2vh;
 }
 
@@ -72,10 +72,6 @@
    margin: 0.5vh 0;
 }
 
-.number_input:before {
-    color: red;
-}
-
 .authors_container {
    display: flex;
    justify-content: space-between;
@@ -106,7 +102,7 @@
 }
 
 .publication_item {
-   flex-grow: 1;
-   margin-right: 0.3vh; /* Adjust the margin as needed */
+    flex-grow: 1;
+    margin-right: 0.3vh;
     padding: 0.2vh;
 }
