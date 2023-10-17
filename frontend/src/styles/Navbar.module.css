@@ -33,7 +33,7 @@
 .login {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     width: 35%;
     font-size: min(3vw, 2.2vh);
 }

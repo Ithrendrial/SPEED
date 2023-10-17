@@ -24,7 +24,7 @@ interface FormData {
     rating: number[];
 }
 
-const initialFormData: FormData = {
+const initialFormData: FormData = { // Initialise form data values
     title: '',
     authors: [""],
     journal_name: '',
@@ -48,6 +48,7 @@ const NumberForm: React.FC = () => {
     const [formData, setFormData] = useState<FormData>(initialFormData);
     
 
+    // Handle submit article button press //
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         axios
@@ -60,6 +61,7 @@ const NumberForm: React.FC = () => {
             });
     };
 
+    // Update authors list with added author field //
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
@@ -71,6 +73,8 @@ const NumberForm: React.FC = () => {
         });
 
     };
+
+    // Set form data with new author //
     const addAuthor = () => {
         setFormData({
             ...formData,
@@ -78,6 +82,8 @@ const NumberForm: React.FC = () => {
         });
     };
 
+
+    // Toggle between input type string and date to display placeholder text on publication date picker //
     const onDateFocus = (e: React.FocusEvent<HTMLInputElement>) => (e.target.type = "date");
     const onDateBlur = (e: React.FocusEvent<HTMLInputElement>) => (e.target.type = "text");
 
@@ -89,7 +95,7 @@ const NumberForm: React.FC = () => {
             <div className={style.form_container}>
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Article Title*<br />
+                        Article Title*<br /> {/*Form input for Article Title*/}
                         <input
                             type="text"
                             className={style.text_input}
@@ -104,7 +110,7 @@ const NumberForm: React.FC = () => {
                     <br />
                     <label>
                         Author(s)*<br />
-                        <div className={style.authors_container}>
+                        <div className={style.authors_container}> {/*Form input for Authors*/}
                             <div className={style.author_list}>
                         {formData.authors.map((author, index) => (
                             <input
@@ -138,7 +144,7 @@ const NumberForm: React.FC = () => {
                     </label>
                     <div className={style.publication_container}>
                         <div className={style.publication_item_row_one}>
-                            <div className={style.publication_item}>
+                            <div className={style.publication_item}> {/*Form input for Journal Name*/}
                             <input
                                 type="text"
                                 className={style.text_input}
@@ -148,7 +154,7 @@ const NumberForm: React.FC = () => {
                                 placeholder="Journal Name"
                             />
                             </div>
-                            <div className={style.publication_item}>
+                            <div className={style.publication_item}> {/*Form input for Publication Date*/}
                                 <input
                                     type="text"
                                     className={style.date_input}
@@ -162,7 +168,7 @@ const NumberForm: React.FC = () => {
                             </div>
                         </div>
                         <div className={style.publication_item_row_one}>
-                            <div className={style.publication_item}>
+                            <div className={style.publication_item}> {/*Form input for Volume Number*/}
                                 <input
                                     type="number"
                                     className={style.number_input}
@@ -172,7 +178,7 @@ const NumberForm: React.FC = () => {
                                     placeholder="Volume"
                                 />
                             </div>
-                            <div className={style.publication_item}>
+                            <div className={style.publication_item}> {/*Form input for Issue Number*/}
                                 <input
                                     type="number"
                                     className={style.number_input}
@@ -182,7 +188,7 @@ const NumberForm: React.FC = () => {
                                     placeholder="Issue"
                                 />
                             </div>
-                            <div className={style.publication_item}>
+                            <div className={style.publication_item}> {/*Form input for Page Range*/}
                                 <input
                                     type="text"
                                     className={style.text_input}
@@ -196,7 +202,7 @@ const NumberForm: React.FC = () => {
                     </div>
                     <br />
                     <label>
-                        DOI*<br />
+                        DOI*<br /> {/*Form input for DOI link*/}
                         <input
                             type="text"
                             className={style.text_input}
