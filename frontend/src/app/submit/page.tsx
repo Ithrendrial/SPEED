@@ -51,7 +51,7 @@ const NumberForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         axios
-            .post('http://localhost:3001/articles', formData)
+            .post('https://speed-backend-seven.vercel.app/articles', formData)
             .then((response) => {
                 console.log('Article created successfully:', response.data);
             })
