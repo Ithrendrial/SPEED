@@ -8,18 +8,18 @@ import { ArticlesRepository } from "./articles.repository";
 export class ArticlesService {
     constructor(private readonly articlesRepository: ArticlesRepository) {}
 
-    // Get a specified user by id
+    // Get a specified article by id
     async getArticleById(articleId: string): Promise<Article> {
         return this.articlesRepository.findOne({ articleId })
     }
 
-    // Get all the users
+    // Get all the articles
     async getArticles(): Promise<Article[]> {
         return this.articlesRepository.find({});
     }
 
     // Create a new article when given the title and authors
-    async createArticle(title: string, authors: string[], journal_name: string, publication_date: Date, volume: number, issue: number, pages: string, doi: string, method: string[], claim: string[], research_type: string[], participant_type: string[], summary: string[], support: string[], rating: number[]): Promise<Article> {
+    async createArticle(title: string, authors: string[], journal_name: string, publication_date: Date, volume: number, issue: number, pages: string, doi: string, method: string[], claim: string[], research_type: string[], participant_type: string[], summary: string[], support: string[], rating: string[]): Promise<Article> {
         return this.articlesRepository.create({
             articleId: uuidv4(),
             title: title,
@@ -42,7 +42,7 @@ export class ArticlesService {
         })
     }
 
-    // Finds a user by id and applies updates
+    // Finds an article by id and applies updates
     async updateArticle(articleId: string, articleUpdates: UpdateArticleDto): Promise<Article> {
         return this.articlesRepository.findOneAndUpdate({ articleId }, articleUpdates);
     }

@@ -1,4 +1,5 @@
+import { IsOptional } from 'class-validator';
 export class UpdateArticleDto {
-    title: string;
-    authors: string[];
+    title: string; // temporary just for testing purposes
+    rating: string[];
 }

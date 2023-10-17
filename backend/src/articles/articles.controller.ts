@@ -10,7 +10,7 @@ export class ArticlesController {
     constructor(private readonly articlesService: ArticlesService) {}
 
 
-    // Routes to interact with repository, validation should be added here later
+    // Routes to interact with repository
     @Get(':articleId')
     async getArticle(@Param('articleId') articleId: string): Promise<Article> {
         return this.articlesService.getArticleById(articleId);
@@ -38,7 +38,6 @@ export class ArticlesController {
                                                   createArticleDto.summary,
                                                   createArticleDto.support,
                                                   createArticleDto.rating)
-
     }
 
     @Patch(':articleId')

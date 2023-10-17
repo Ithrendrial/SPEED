@@ -66,8 +66,8 @@ export class Article {
     })
     support: string[];
 
-    @Prop([Number])
-    rating: number[];
+    @Prop([String])
+    rating: string[];
 
     @Prop()
     publication_status: boolean;

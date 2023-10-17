@@ -23,3 +23,9 @@
     letter-spacing: min(0.1vw, 0.2vh);
     font-weight: 700;
 }
+
+.add_rating {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #6E8C30;
+}
