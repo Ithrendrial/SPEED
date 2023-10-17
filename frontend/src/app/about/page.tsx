@@ -1,4 +1,5 @@
 import style from "../../styles/AboutPage.module.css";
+import RatingPopUp from "../../components/RatingPopUp";
 export default function About() {
   return (
     <div className={style.page}>

@@ -21,7 +21,7 @@ export default function Layout({
   return (
     <html>
       <body>
-        <Navbar isHome={ isHome }/>
+        <Navbar isNotHome={ isHome }/>
         {children}
       </body>
     </html>)
