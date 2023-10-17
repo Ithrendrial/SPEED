@@ -8,11 +8,18 @@ import "@/styles/globals.css";
 interface LogInProps {
   toggleSignUpState: (e: React.MouseEvent, isClicked: boolean) => void;
   backgroundPressed: (e: React.MouseEvent, isClicked: boolean) => void;
+  isModerator: boolean;
+  isAnalyst: boolean;
 }
 
 export default function SignUp(props: LogInProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isModerator, setIsModerator] = useState(props.isModerator); // User Moderator role state
+  const [isAnalyst, setIsAnalyst] = useState(props.isAnalyst); // User Analyst role state
+
+  // const { isModerator, isAnalyst } = props;
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -61,8 +68,20 @@ export default function SignUp(props: LogInProps) {
           Authorization: `Bearer ${token.access_token}`,
         },
       });
-      const user = await response.text();
-      console.log("User: " + user);
+      const user = await response.json();
+
+      console.log("User:", JSON.stringify(user, null, 2));
+      console.log("User role:", user["radioOption"]);
+      // is it a moderator or analyst?
+      if (user) {
+        if (user["radioOption"] === "moderator") {
+          setIsModerator(true); // Update local state
+          setIsAnalyst(false);
+        } else if (user["radioOption"] === "analyst") {
+          setIsAnalyst(true); // Update local state
+          setIsModerator(false);
+        }
+      }
     } catch (error) {
       console.error("Error:", error);
     }

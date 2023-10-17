@@ -11,6 +11,8 @@ import SignUp from "../components/SignUp";
 
 interface NavbarProps {
   isHome: boolean;
+  // isModerator: boolean;
+  // isAnalyst: boolean;
 }
 
 export default function Navbar(props: NavbarProps) {
@@ -28,17 +30,17 @@ export default function Navbar(props: NavbarProps) {
   const backgroundPressed = () => {
     setSignUpClicked(false);
     setLogInClicked(false);
-  }
+  };
 
   const toggleSignUpState = () => {
     setSignUpClicked(true);
     setLogInClicked(false);
-  }
+  };
 
   const toggleLogInState = () => {
     setLogInClicked(true);
     setSignUpClicked(false);
-  }
+  };
 
   // Source for image determined by if nav bar is white or green, and whether user is logged in or not.
   const loginImageSrc = props.isHome
@@ -69,58 +71,77 @@ export default function Navbar(props: NavbarProps) {
   }
 
   return (
-<>
-    <div className={style.bar} style={backgroundColor}>
-      <Link className={style.title} style={textColor} href={"/"}>
-        SPEED
-      </Link>
-      <div className={style.nav_wrapper}>
-        <Link className={style.nav_items} style={textColor} href={"/about"}>
-          ABOUT
+    <>
+      <div className={style.bar} style={backgroundColor}>
+        <Link className={style.title} style={textColor} href={"/"}>
+          SPEED
         </Link>
-        <Link className={style.nav_items} style={textColor} href={"/search"}>
-          SEARCH
-        </Link>
-        <Link className={style.nav_items} style={textColor} href={"/submit"}>
-          SUBMIT
-        </Link>
+        <div className={style.nav_wrapper}>
+          <Link className={style.nav_items} style={textColor} href={"/about"}>
+            ABOUT
+          </Link>
+          <Link className={style.nav_items} style={textColor} href={"/search"}>
+            SEARCH
+          </Link>
+          <Link className={style.nav_items} style={textColor} href={"/submit"}>
+            SUBMIT
+          </Link>
 
-        {/* If the user is a moderator or analyst, show additional nav item. */}
-        {isModerator ? (
-          <div className={style.nav_items} style={textColor}>
-            ANALYSE
-          </div>
-        ) : null}
-        {isAnalyst ? (
-          <div className={style.nav_items} style={textColor}>
-            ANALYSE
-          </div>
-        ) : null}
-      </div>
-      <div className={style.login}>
-        {isLoggedIn ? (
-          <div className={style.login_wrapper} style={textColor} onClick={ toggleLogin }>
-            Name
-          </div>
-        ) : (
-          <div className={style.login_wrapper} style={textColor} onClick={ toggleLogin }>Log in</div>
-        )}
+          {/* If the user is a moderator or analyst, show additional nav item. */}
+          {isModerator ? (
+            <div className={style.nav_items} style={textColor}>
+              ANALYSE
+            </div>
+          ) : null}
+          {isAnalyst ? (
+            <div className={style.nav_items} style={textColor}>
+              ANALYSE
+            </div>
+          ) : null}
+        </div>
+        <div className={style.login}>
+          {isLoggedIn ? (
+            <div
+              className={style.login_wrapper}
+              style={textColor}
+              onClick={toggleLogin}
+            >
+              Name
+            </div>
+          ) : (
+            <div
+              className={style.login_wrapper}
+              style={textColor}
+              onClick={toggleLogin}
+            >
+              Log in
+            </div>
+          )}
 
           <Image
-              className={style.image}
-              src={loginImageSrc}
-              onClick={toggleLogInState}
-              width={300}
-              height={300}
-              alt="Log In"
+            className={style.image}
+            src={loginImageSrc}
+            onClick={toggleLogInState}
+            width={300}
+            height={300}
+            alt="Log In"
           />
-
+        </div>
       </div>
-    </div>
-      {logInClicked ? <Login toggleSignUpState={() => toggleSignUpState()}
-                             backgroundPressed={() => backgroundPressed()}/> : null}
-      {signUpClicked ? <SignUp toggleLogInState={() => toggleLogInState()}
-                               backgroundPressed={() => backgroundPressed()}/> : null}
-      </>
+      {logInClicked ? (
+        <Login
+          toggleSignUpState={() => toggleSignUpState()}
+          backgroundPressed={() => backgroundPressed()}
+          isModerator={isModerator}
+          isAnalyst={isAnalyst}
+        />
+      ) : null}
+      {signUpClicked ? (
+        <SignUp
+          toggleLogInState={() => toggleLogInState()}
+          backgroundPressed={() => backgroundPressed()}
+        />
+      ) : null}
+    </>
   );
 }

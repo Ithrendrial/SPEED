@@ -36,4 +36,8 @@ export class AuthService {
             access_token: await this.jwtService.signAsync(payload),
         };
     }
+
+    async getUserDetails(username: string): Promise<any> {
+        return this.usersService.validate(username);
+    }
 }
