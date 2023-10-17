@@ -28,7 +28,6 @@
     font-size: min(5vw, 3.5vh);
     letter-spacing: 0.2vw;
     font-weight: 500;
-    margin-bottom: min(2vw, 1.5vh);
 }
 
 .rating {
@@ -40,3 +39,5 @@
 .buttons {
     align-self: end;
 }
+
+

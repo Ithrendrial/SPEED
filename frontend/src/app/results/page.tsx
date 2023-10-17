@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
 import style from "../../styles/ResultsPage.module.css";
+import RatingPopUp from "@/components/RatingPopUp";
 
 interface Article { // Types for Article object
     articleId: string;
@@ -23,7 +24,7 @@ interface Article { // Types for Article object
     participant_type: string[];
     summary: string[];
     support: string[];
-    rating: number[];
+    rating: string[];
     publication_status: boolean;
 }
 
@@ -32,6 +33,25 @@ function Results() {
     const [selectedMethod, setSelectedMethod] = useState<string>('');
     const [selectedClaim, setSelectedClaim] = useState<string>('');
     let claimIndex = 0;
+
+    // Ratings Pop Up props //
+    const [ratingOpen, setRatingOpen] = useState<Boolean>(false);
+    const [selectedArticleId, setSelectedArticleId] = useState<string>('');
+    const [originalRatingArray, setOriginalRatingArray] = useState<string[]>([]);
+    const [claimIndexProp, setClaimIndexProp] = useState<string>('');
+
+
+    function getArticleRatings(ratingsAsString : string): number {
+        const ratingsArray = ratingsAsString.split(',');
+        const numericRatings = ratingsArray.map((rating) => parseFloat(rating));
+
+        if (numericRatings.length > 0) {
+            const sum = numericRatings.reduce((total, rating) => total + rating, 0);
+            return sum / numericRatings.length;
+        } else {
+            return 0;
+        }
+    }
 
     useEffect(() => {
         // Parse the query parameters from the URL
@@ -91,7 +111,20 @@ function Results() {
             participant_type: claimIndex !== -1 ? article.participant_type[claimIndex] : '', // Use the corresponding index if found
             support: claimIndex !== -1 ? article.support[claimIndex] : '', // Use the corresponding index if found
             summary: article.summary,
-            rating: claimIndex !== -1 && article.rating && article.rating[claimIndex] ? <div className={ style.rating }><StarRatings rating={ article.rating[claimIndex] } starDimension="1.2rem" starSpacing="0.1rem" starRatedColor="rgb(238, 198, 31)"/></div> : <StarRatings rating={ 0 } starDimension="1.2rem" starSpacing="0.1rem"/>
+            rating:
+                <div>
+                    {claimIndex !== -1 && article.rating && article.rating[claimIndex] ?
+                        <div className={ style.rating }><StarRatings rating={ getArticleRatings(article.rating[claimIndex]) } starDimension="1.2rem" starSpacing="0.1rem" starRatedColor="rgb(238, 198, 31)"/></div>
+                        : <StarRatings rating={ 0 } starDimension="1.2rem" starSpacing="0.1rem"/> }
+
+
+                    <div className={ style.add_rating } id={ claimIndex.toString() } onClick={(e) => {
+                        setSelectedArticleId(article.articleId);
+                        setClaimIndexProp(e.currentTarget.id)
+                        setOriginalRatingArray(article.rating);
+                        setRatingOpen(true);
+                    }}>Add Rating</div>
+                </div>
         };
     });
 
@@ -234,11 +267,19 @@ function Results() {
         [],
     );
 
+    const backgroundPressed = () => {
+        setRatingOpen(false);
+    }
+
     return (
         <div className={ style.page }>
         <div className="heading">SEARCH RESULTS</div>
-        <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div> {/* Display chosen method and claim passed from search page */}
-            <ThemeProvider theme={ tableTheme }> {/* Add table styling defined earlier */}
+        <div className={ style.search_info }> "{ selectedMethod } - { selectedClaim }" </div>
+            {ratingOpen ? <RatingPopUp backgroundPressed={() => backgroundPressed()}
+                                       articleId={ selectedArticleId }
+                                       originalRatingArray={ originalRatingArray}
+                                       claimIndex={ claimIndexProp }/> : null }
+            <ThemeProvider theme={ tableTheme }>
             <MaterialReactTable
                                 columns={ columns } // Define table columns
                                 data={ data } // Pass in table data
