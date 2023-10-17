@@ -2,6 +2,7 @@
 import style from "../../styles/SubmitPage.module.css"
 import React, { useState } from 'react';
 import axios from 'axios';
+import {BiPlusMedical} from "react-icons/bi";
 
 interface FormData {
     title: string;
@@ -32,43 +33,20 @@ const initialFormData: FormData = {
     issue: 0,
     pages: '',
     doi: '',
-    moderator_status: "unmoderated",//Need
+    moderator_status: "unmoderated", // Required Field
     method: [""],
     claim: [""],
     research_type: [""],
     participant_type: [""],
     summary: [""],
-    support: ["neutral"],//Need
-    published_status: false,//Need
+    support: ["neutral"], // Required Field
+    published_status: false,
     rating: [0]
 };
 
-/*const newArticleData =
-    {
-        title: "Testing mob program",
-        authors: ["author 7", "author 8", "author 9"],
-        journal_name: "Journal Name",
-        publication_date: "2012",
-        volume: null,
-        issue: 2,
-        pages: "1-15",
-        doi: "https://doi.org/10.1088/1367",
-        moderator_status: "unmoderated",//Need
-        method: [""],
-        claim: [""],
-        research_type: [""],
-        participant_type: [""],
-        summary: [""],
-        support: ["neutral"],//Need
-        published_status: false,//Need
-        rating: [0]
-    }*/
-// Add other properties as needed
-
-
-
 const NumberForm: React.FC = () => {
     const [formData, setFormData] = useState<FormData>(initialFormData);
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -99,17 +77,22 @@ const NumberForm: React.FC = () => {
             authors: [...formData.authors, ''],
         });
     };
+
+    const onDateFocus = (e: React.FocusEvent<HTMLInputElement>) => (e.target.type = "date");
+    const onDateBlur = (e: React.FocusEvent<HTMLInputElement>) => (e.target.type = "text");
+
     return (
         <div>
-            <div className={style.topic}>
+            <div className="heading" style={ {textAlign: "center"}}>
                 <h1>SUBMIT A NEW ARTICLE</h1>
             </div>
-            <div className={style.formoutline}>
+            <div className={style.form_container}>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Article Title*<br />
                         <input
                             type="text"
+                            className={style.text_input}
                             name="title"
                             value={formData.title}
                             onChange={handleChange}
@@ -121,9 +104,12 @@ const NumberForm: React.FC = () => {
                     <br />
                     <label>
                         Author(s)*<br />
+                        <div className={style.authors_container}>
+                            <div className={style.author_list}>
                         {formData.authors.map((author, index) => (
                             <input
                                 type="text"
+                                className={style.text_input}
                                 name="authors"
                                 key={index}
                                 value={author}
@@ -139,68 +125,81 @@ const NumberForm: React.FC = () => {
                                 required
                             />
                         ))}
-                        <div className={style.button}>
-                        <button type="button" onClick={addAuthor}>Add Author</button>
+                            </div>
+                        <div className={style.add_author_button}>
+                        <button type="button" onClick={addAuthor}><BiPlusMedical /></button>
+                        </div>
                         </div>
                     </label>
                     <br />
 
                     <label>
-                        Publication Information<br />
-                        <input
-                            type="text"
-                            name="journal_name"
-                            value={formData.journal_name}
-                            onChange={handleChange}
-                            placeholder="Journal Name"
-                        />
+                        Publication Information
                     </label>
-                    <br />
-                    <label>
-                        <input
-                            type="text"
-                            name="publication_date"
-                            value={formData.publication_date}
-                            onChange={handleChange}
-                            placeholder="Publication Date"
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            type="number"
-                            name="volume"
-                            value={formData.volume}
-                            onChange={handleChange}
-                            placeholder="Volume"
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            type="text"
-                            name="issue"
-                            value={formData.issue}
-                            onChange={handleChange}
-                            placeholder="Issue"
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            type="text"
-                            name="pages"
-                            value={formData.pages}
-                            onChange={handleChange}
-                            placeholder="Page(S)"
-                        />
-                    </label>
-                    <br />
+                    <div className={style.publication_container}>
+                        <div className={style.publication_item_row_one}>
+                            <div className={style.publication_item}>
+                            <input
+                                type="text"
+                                className={style.text_input}
+                                name="journal_name"
+                                value={formData.journal_name}
+                                onChange={handleChange}
+                                placeholder="Journal Name"
+                            />
+                            </div>
+                            <div className={style.publication_item}>
+                                <input
+                                    type="text"
+                                    className={style.date_input}
+                                    name="publication_date"
+                                    value={formData.publication_date}
+                                    onChange={handleChange}
+                                    placeholder="Publication Date"
+                                    onFocus={onDateFocus}
+                                    onBlur={onDateBlur}
+                                />
+                            </div>
+                        </div>
+                        <div className={style.publication_item_row_one}>
+                            <div className={style.publication_item}>
+                                <input
+                                    type="number"
+                                    className={style.number_input}
+                                    name="volume"
+                                    value={formData.volume === 0 ? '' : formData.volume}
+                                    onChange={handleChange}
+                                    placeholder="Volume"
+                                />
+                            </div>
+                            <div className={style.publication_item}>
+                                <input
+                                    type="number"
+                                    className={style.number_input}
+                                    name="issue"
+                                    value={formData.issue === 0 ? '' : formData.issue}
+                                    onChange={handleChange}
+                                    placeholder="Issue"
+                                />
+                            </div>
+                            <div className={style.publication_item}>
+                                <input
+                                    type="text"
+                                    className={style.text_input}
+                                    name="pages"
+                                    value={formData.pages}
+                                    onChange={handleChange}
+                                    placeholder="Page(s)"
+                                />
+                            </div>
+                        </div>
+                    </div>
                     <br />
                     <label>
                         DOI*<br />
                         <input
                             type="text"
+                            className={style.text_input}
                             name="doi"
                             value={formData.doi}
                             onChange={handleChange}
@@ -208,8 +207,10 @@ const NumberForm: React.FC = () => {
                             required
                         />
                     </label>
-                    <div className={style.button}>
+                    <div className={style.submit_button_wrapper}>
+                    <div className={style.submit_button}>
                         <button type="submit">Submit</button>
+                    </div>
                     </div>
                 </form>
             </div>
