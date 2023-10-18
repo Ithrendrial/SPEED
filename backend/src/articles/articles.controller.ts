@@ -3,7 +3,7 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './schema/articles.schema';
 import { ArticlesService } from './articles.service';
-import {Public} from "../declerations/routeDeclarations";
+import { Public } from "../declerations/routeDeclarations";
 
 @Controller('articles')
 export class ArticlesController {
