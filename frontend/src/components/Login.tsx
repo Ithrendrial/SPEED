@@ -39,7 +39,7 @@ export default function SignUp(props: LogInProps) {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/auth/authorize", {
+      const response = await fetch("https://speed-backend-seven.vercel.app/auth/authorize", {
         method: "POST",
         body: JSON.stringify({
           uname: username,
@@ -60,7 +60,7 @@ export default function SignUp(props: LogInProps) {
 
     try {
       console.log(token);
-      const response = await fetch("http://localhost:3001/auth/profile", {
+      const response = await fetch("https://speed-backend-seven.vercel.app/auth/profile", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token.access_token}`,
@@ -97,7 +97,7 @@ export default function SignUp(props: LogInProps) {
   // Retrieve all account data from the database //
   async function getAll() {
     try {
-      const response = await fetch("http://localhost:3001/users/all");
+      const response = await fetch("https://speed-backend-seven.vercel.app/users/all");
       const user = await response.text();
       console.log("User: " + user);
     } catch (error) {

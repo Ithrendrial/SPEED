@@ -11,9 +11,9 @@ import SignUp from "../components/SignUp";
 
 interface NavbarProps {
   isNotHome: boolean;
-  isModerator: boolean;
-  isAnalyst: boolean;
-  username: string;
+  isModerator?: boolean;
+  isAnalyst?: boolean;
+  username?: string;
 }
 
 export default function Navbar(props: NavbarProps) {
