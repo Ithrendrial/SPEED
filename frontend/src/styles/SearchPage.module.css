@@ -1,0 +1,81 @@
+.page {
+    padding: max(1vw, -2vh) min(2vw, 4vh) 0;
+}
+
+.hidden_radio {
+    display: none;
+}
+
+.button {
+    background-color: #334C1F;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: min(3vw, 2.3vh);
+    margin: 1vh 1vh;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.label_checked {
+    background-color: #6E8C30;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: min(3vw, 2.3vh);
+    margin: 1vh 1vh;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.button:focus {
+    background-color: #6E8C30;
+}
+
+.submit{
+    position: absolute;
+    bottom: 5vw;
+    right: 5vw;
+    background-color: #6E8C30;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: min(3vw, 2.3vh);
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.submit:disabled {
+    background-color: #899a68;
+    color: #e3e3e3;
+}
+
+.methods, .claims {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 94%;
+    margin: 0 2.6vw 5vh 2.6vw;
+}
+
+.claims {
+    justify-content: left;
+}
+
+.options{
+    margin-top: min(2vw, 4vh);
+}
+
+.subheading{
+    font-family: LexendExa-SemiBold, sans-serif;
+    font-size: min(4vw, 3.5vh);
+    color: #6E8C30;
+    letter-spacing: min(0.1vw, 0.2vh);
+    font-weight: 700;
+    width: 94%;
+    margin: 0 3vw 1vh 3vw;
+}

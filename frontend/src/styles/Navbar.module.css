@@ -2,6 +2,7 @@
     height: min(10vw, 9vh);
     width: 100%;
     display: flex;
+    padding: 0 min(1vw, 1vh);
 }
 
 .title {
@@ -32,7 +33,7 @@
 .login {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     width: 35%;
     font-size: min(3vw, 2.2vh);
 }

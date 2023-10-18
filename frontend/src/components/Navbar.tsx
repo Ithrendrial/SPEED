@@ -43,13 +43,13 @@ export default function Navbar(props: NavbarProps) {
   };
 
   // Source for image determined by if nav bar is white or green, and whether user is logged in or not.
-  const loginImageSrc = props.isHome
+  const loginImageSrc = props.isNotHome
     ? isLoggedIn
-      ? ProfileGreen
-      : LoginGreen
+      ? ProfileGreen // If user is not home and logged in, display green profile icon
+      : LoginGreen // If user is not home and not logged in, display green login prompt icon
     : isLoggedIn
-    ? ProfileWhite
-    : LoginWhite;
+    ? ProfileWhite // If user is home and logged in, display white profile icon
+    : LoginWhite; // If user is home and not logged in, display white login prompt icon
 
   let backgroundColor;
   let textColor;
@@ -99,6 +99,7 @@ export default function Navbar(props: NavbarProps) {
             </div>
           ) : null}
         </div>
+
         <div className={style.login}>
           {isLoggedIn ? (
             <div
