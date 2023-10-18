@@ -3,22 +3,26 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './schema/articles.schema';
 import { ArticlesService } from './articles.service';
+import {Public} from "../declerations/routeDeclarations";
 
 @Controller('articles')
 export class ArticlesController {
     constructor(private readonly articlesService: ArticlesService) {}
 
     // Routes to interact with repository, validation should be added here later
+    @Public()
     @Get(':articleId')
     async getArticle(@Param('articleId') articleId: string): Promise<Article> {
         return this.articlesService.getArticleById(articleId);
     }
 
+    @Public()
     @Get()
     async getArticles(): Promise<Article[]> {
         return this.articlesService.getArticles();
     }
 
+    @Public()
     @Post()
     async createArticle(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
         return this.articlesService.createArticle(createArticleDto.title,
@@ -38,6 +42,7 @@ export class ArticlesController {
                                                   createArticleDto.rating)
     }
 
+    @Public()
     @Patch(':articleId')
     async updateArticle(
         @Param('articleId') articleId: string,
