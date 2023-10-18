@@ -8,12 +8,7 @@ import { ArticlesService } from './articles.service';
 export class ArticlesController {
     constructor(private readonly articlesService: ArticlesService) {}
 
-<<<<<<< HEAD
-    // Routes to interact with repository, validation should be added here later
-=======
-
     // Routes to interact with repository
->>>>>>> main
     @Get(':articleId')
     async getArticle(@Param('articleId') articleId: string): Promise<Article> {
         return this.articlesService.getArticleById(articleId);
@@ -25,32 +20,26 @@ export class ArticlesController {
     }
 
     @Post()
-<<<<<<< HEAD
     async createArticle(
         @Body() createArticleDto: CreateArticleDto,
     ): Promise<Article> {
         return this.articlesService.createArticle(
             createArticleDto.title,
             createArticleDto.authors,
+            createArticleDto.journal_name,
+            createArticleDto.publication_date,
+            createArticleDto.volume,
+            createArticleDto.issue,
+            createArticleDto.pages,
+            createArticleDto.doi,
+            createArticleDto.method,
+            createArticleDto.claim,
+            createArticleDto.research_type,
+            createArticleDto.participant_type,
+            createArticleDto.summary,
+            createArticleDto.support,
+            createArticleDto.rating,
         );
-=======
-    async createArticle(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
-        return this.articlesService.createArticle(createArticleDto.title,
-                                                  createArticleDto.authors,
-                                                  createArticleDto.journal_name,
-                                                  createArticleDto.publication_date,
-                                                  createArticleDto.volume,
-                                                  createArticleDto.issue,
-                                                  createArticleDto.pages,
-                                                  createArticleDto.doi,
-                                                  createArticleDto.method,
-                                                  createArticleDto.claim,
-                                                  createArticleDto.research_type,
-                                                  createArticleDto.participant_type,
-                                                  createArticleDto.summary,
-                                                  createArticleDto.support,
-                                                  createArticleDto.rating)
->>>>>>> main
     }
 
     @Patch(':articleId')
