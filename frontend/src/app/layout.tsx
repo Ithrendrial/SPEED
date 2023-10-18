@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useState} from "react";
 import { usePathname } from 'next/navigation';
 import Navbar from "@/components/Navbar";
 import '@/styles/globals.css'
@@ -12,6 +12,12 @@ export default function Layout({
 }) {
   const pathname = usePathname();
   const isHome = (pathname === "/");
+
+    const [showLogin, setShowLogin] = useState(false);
+    const toggleSignup = () => {
+        setShowLogin(!showLogin);
+    };
+
   return (
     <html>
       <body>

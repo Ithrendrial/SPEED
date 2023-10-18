@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type ArticleDocument = Article & Document;
-@Schema({collection: 'Submissions'})
+@Schema({ collection: 'Submissions' })
 export class Article {
 
     @Prop()
@@ -72,4 +72,4 @@ export class Article {
     @Prop()
     publication_status: boolean;
 }
-export const ArticleSchema = SchemaFactory.createForClass(Article)
+export const ArticleSchema = SchemaFactory.createForClass(Article);

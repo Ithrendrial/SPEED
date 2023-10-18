@@ -24,7 +24,7 @@
 }
 
 .nav_items {
-    margin: min(2vw, 2vh);
+    margin: min(1vw, 2vh);
     font-family: Inter, sans-serif;
     font-size: min(3vw, 4vh);
     cursor: pointer;
@@ -47,4 +47,5 @@
     height: 80%;
     width: fit-content;
     margin: 0 min(2vw, 3vh) 0 1vw;
+    cursor: pointer;
 }
