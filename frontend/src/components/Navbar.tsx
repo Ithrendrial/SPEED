@@ -10,18 +10,20 @@ import Login from "../components/Login";
 import SignUp from "../components/SignUp";
 
 interface NavbarProps {
-  isHome: boolean;
-  // isModerator: boolean;
-  // isAnalyst: boolean;
+  isNotHome: boolean;
+  isModerator: boolean;
+  isAnalyst: boolean;
+  username: string;
 }
 
 export default function Navbar(props: NavbarProps) {
-  const [logInClicked, setLogInClicked] = useState(false);
-  const [signUpClicked, setSignUpClicked] = useState(false);
+  const [logInClicked, setLogInClicked] = useState<boolean>(false); // If true, render log in modal
+  const [signUpClicked, setSignUpClicked] = useState<boolean>(false); // If true, render sign up modal
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // User login state
-  const [isModerator, setIsModerator] = useState(false); // User Moderator role state
-  const [isAnalyst, setIsAnalyst] = useState(false); // User Analyst role state
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // User login state
+  const [isModerator, setIsModerator] = useState<boolean>(false); // User Moderator role state
+  const [isAnalyst, setIsAnalyst] = useState<boolean>(false); // User Analyst role state
+  const [username, setUsername] = useState<string>(''); // Retrieve and set logged in user's name
 
   const toggleLogin = () => {
     setLogInClicked(!logInClicked);
@@ -42,6 +44,19 @@ export default function Navbar(props: NavbarProps) {
     setSignUpClicked(false);
   };
 
+  function handleIsModeratorSet (isModerator: boolean){
+    setIsModerator(isModerator);
+  }
+
+  function handleIsAnalystSet (isAnalyst: boolean){
+    setIsModerator(isAnalyst);
+  }
+
+  function handleUsernameSet (username: string){
+    setIsLoggedIn(true);
+    setUsername(username);
+  }
+
   // Source for image determined by if nav bar is white or green, and whether user is logged in or not.
   const loginImageSrc = props.isNotHome
     ? isLoggedIn
@@ -54,7 +69,7 @@ export default function Navbar(props: NavbarProps) {
   let backgroundColor;
   let textColor;
 
-  if (props.isHome) {
+  if (props.isNotHome) {
     backgroundColor = {
       backgroundColor: "#E5E7DE",
     };
@@ -65,9 +80,11 @@ export default function Navbar(props: NavbarProps) {
     backgroundColor = {
       backgroundColor: "#334C1F",
     };
+
     textColor = {
       color: "#E5E7DE",
     };
+
   }
 
   return (
@@ -89,14 +106,14 @@ export default function Navbar(props: NavbarProps) {
 
           {/* If the user is a moderator or analyst, show additional nav item. */}
           {isModerator ? (
-            <div className={style.nav_items} style={textColor}>
-              ANALYSE
-            </div>
+              <Link className={style.nav_items} style={{color: "#95AE3A"}} href={"/moderate"}>
+                MODERATE
+              </Link>
           ) : null}
           {isAnalyst ? (
-            <div className={style.nav_items} style={textColor}>
-              ANALYSE
-            </div>
+              <Link className={style.nav_items} style={{color: "#95AE3A"}} href={"/analyse"}>
+                ANALYSE
+              </Link>
           ) : null}
         </div>
 
@@ -107,7 +124,7 @@ export default function Navbar(props: NavbarProps) {
               style={textColor}
               onClick={toggleLogin}
             >
-              Name
+              { username }
             </div>
           ) : (
             <div
@@ -133,8 +150,9 @@ export default function Navbar(props: NavbarProps) {
         <Login
           toggleSignUpState={() => toggleSignUpState()}
           backgroundPressed={() => backgroundPressed()}
-          isModerator={isModerator}
-          isAnalyst={isAnalyst}
+          handleSetUsername = { handleUsernameSet }
+          handleIsModerator = { handleIsModeratorSet }
+          handleIsAnalyst = { handleIsAnalystSet }
         />
       ) : null}
       {signUpClicked ? (

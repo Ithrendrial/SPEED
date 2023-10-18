@@ -4,7 +4,7 @@
   height: calc(99.8vh - min(10vw, 9vh));
   width: 99.8vw;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) brightness(0.8);
 }
 
 .signInFormContainer {
@@ -21,6 +21,7 @@
   background-color: #E5E7DE;
   border-radius: min(2vw, 2vh);
   width: min(45vw, 50vh);
+  border: #b6aea1 1px solid;
 }
 
 .heading {
