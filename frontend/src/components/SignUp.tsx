@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, {FormEvent, MouseEvent, useState} from "react";
 import style from "../styles/LoginPage.module.css";
 
 interface SignUpProps {
-  toggleLogInState: (e: React.MouseEvent, isClicked: boolean) => void;
-  backgroundPressed: (e: React.MouseEvent, isClicked: boolean) => void;
+  toggleLogInState: (isClicked: boolean, e?: MouseEvent<HTMLDivElement>) => void;
+  backgroundPressed: (isClicked: boolean, e?: React.MouseEvent) => void;
 }
 
 export default function SignUp(props: SignUpProps) {
@@ -32,7 +32,7 @@ export default function SignUp(props: SignUpProps) {
     )?.id;
 
     try {
-      const response = await fetch("http://localhost:4000/users/signup", {
+      const response = await fetch("http://localhost:3001/users/signup", {
         method: "POST",
         body: JSON.stringify({
           uname: username,
@@ -46,6 +46,7 @@ export default function SignUp(props: SignUpProps) {
       });
       const authorization = await response.text();
       console.log(authorization);
+      props.toggleLogInState(true);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -54,7 +55,7 @@ export default function SignUp(props: SignUpProps) {
   return (
     <div
       className={style.background}
-      onClick={(e) => props.backgroundPressed(e, true)}
+      onClick={(e) => props.backgroundPressed(true, e)}
     >
       <div className={style.signInFormContainer}>
         <form
@@ -101,7 +102,7 @@ export default function SignUp(props: SignUpProps) {
             <br></br>
             <div
               className={style.signUpButton}
-              onClick={(e) => props.toggleLogInState(e, true)}
+              onClick={(e) => props.toggleLogInState(true, e)}
             >
               Log In
             </div>
