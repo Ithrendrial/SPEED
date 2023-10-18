@@ -54,18 +54,12 @@ export class ArticlesService {
             summary: summary,
             support: support,
             publication_status: true,
-            rating: rating,
-        });
+            rating: rating
+        })
     }
 
     // Finds an article by id and applies updates
-    async updateArticle(
-        articleId: string,
-        articleUpdates: UpdateArticleDto,
-    ): Promise<Article> {
-        return this.articlesRepository.findOneAndUpdate(
-            { articleId },
-            articleUpdates,
-        );
+    async updateArticle(articleId: string, articleUpdates: UpdateArticleDto): Promise<Article> {
+        return this.articlesRepository.findOneAndUpdate({ articleId }, articleUpdates);
     }
 }

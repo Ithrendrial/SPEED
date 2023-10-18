@@ -2,24 +2,19 @@
 
 import style from "../styles/LoginPage.module.css";
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
 import "@/styles/globals.css";
 
 interface LogInProps {
-  toggleSignUpState: (e: React.MouseEvent, isClicked: boolean) => void;
-  backgroundPressed: (e: React.MouseEvent, isClicked: boolean) => void;
-  isModerator: boolean;
-  isAnalyst: boolean;
+  toggleSignUpState: (isClicked: boolean, e?: React.MouseEvent, ) => void;
+  backgroundPressed: (isClicked: boolean, e?: React.MouseEvent) => void;
+  handleIsModerator: (isModerator: boolean) => void;
+  handleIsAnalyst: (isModerator: boolean) => void;
+  handleSetUsername: (username: string) => void;
 }
 
 export default function SignUp(props: LogInProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [isModerator, setIsModerator] = useState(props.isModerator); // User Moderator role state
-  const [isAnalyst, setIsAnalyst] = useState(props.isAnalyst); // User Analyst role state
-
-  // const { isModerator, isAnalyst } = props;
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -29,10 +24,8 @@ export default function SignUp(props: LogInProps) {
     setPassword(event.target.value);
   };
 
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-
-  async function signin(event: React.FormEvent<HTMLFormElement>) {
+  // Attempt to sign in to existing account with form data //
+  async function signIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let token;
 
@@ -40,8 +33,13 @@ export default function SignUp(props: LogInProps) {
       'input[name="accountType"]:checked'
     )?.id;
 
+    if (!accountType) {
+      alert('Please select an account type (Analyst or Moderator)');
+      return;
+    }
+
     try {
-      const response = await fetch("http://localhost:4000/auth/authorize", {
+      const response = await fetch("http://localhost:3001/auth/authorize", {
         method: "POST",
         body: JSON.stringify({
           uname: username,
@@ -62,7 +60,7 @@ export default function SignUp(props: LogInProps) {
 
     try {
       console.log(token);
-      const response = await fetch("http://localhost:4000/auth/profile", {
+      const response = await fetch("http://localhost:3001/auth/profile", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token.access_token}`,
@@ -72,24 +70,34 @@ export default function SignUp(props: LogInProps) {
 
       console.log("User:", JSON.stringify(user, null, 2));
       console.log("User role:", user["radioOption"]);
-      // is it a moderator or analyst?
-      if (user) {
+
+      if ("_id" in user) {
+        // Check if the account type is a moderator or an analyst
         if (user["radioOption"] === "moderator") {
-          setIsModerator(true); // Update local state
-          setIsAnalyst(false);
+          props.handleIsModerator(true);
         } else if (user["radioOption"] === "analyst") {
-          setIsAnalyst(true); // Update local state
-          setIsModerator(false);
+          props.handleIsAnalyst(true);
         }
+
+        // Pass the logged-in username to navbar to display and close modal
+        props.handleSetUsername(user["uname"]);
+        props.backgroundPressed(true);
+
+        // If login details are incorrect, display prompt
+        } else if (user.message === "Unauthorized" && user.statusCode === 401) {
+            alert("Incorrect Login Details");
+        } else {
+            console.log("Unknown response");
+        }
+      } catch (error) {
+            console.error("Error:", error);
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
   }
 
+  // Retrieve all account data from the database //
   async function getAll() {
     try {
-      const response = await fetch("http://localhost:4000/users/all");
+      const response = await fetch("http://localhost:3001/users/all");
       const user = await response.text();
       console.log("User: " + user);
     } catch (error) {
@@ -100,25 +108,25 @@ export default function SignUp(props: LogInProps) {
   return (
     <div
       className={style.background}
-      onClick={(e) => props.backgroundPressed(e, true)}
+      onClick={(e) => props.backgroundPressed(true, e)}
     >
-      <div className={style.signInFormContainer}>
+      <div className={ style.signInFormContainer }>
         <form
-          className={style.signInForm}
-          onSubmit={signin}
-          onClick={(e) => e.stopPropagation()}
+          className={ style.signInForm }
+          onSubmit={ signIn }
+          onClick={ (e) => e.stopPropagation() }
         >
-          <div className={style.heading}>SPEED</div>
-          <div className={style.subheading}>Log in</div>
+          <div className={ style.heading }>SPEED</div>
+          <div className={ style.subheading }>Log in</div>
           <input
-            className={style.input}
+            className={ style.input }
             type="text"
             placeholder="Username"
             value={username}
             onChange={handleUsernameChange}
           />
           <input
-            className={style.input}
+            className={ style.input }
             type="password"
             placeholder="Password"
             value={password}
@@ -131,22 +139,21 @@ export default function SignUp(props: LogInProps) {
               alignItems: "end",
             }}
           >
-            <div>
-              <input type="radio" id="moderator" name="accountType" /> Moderator
-              <br></br>
-              <input type="radio" id="analyst" name="accountType" /> Analyst
-            </div>
-            <br></br>
-            <div
-              className={style.signUpButton}
-              onClick={(e) => props.toggleSignUpState(e, true)}
-            >
-              Sign Up
-            </div>
-            <button className={style.submitButton}>Log In</button>
+            <div> {/* Account type selection (Moderator or Analyst) */}
+              <input type="radio"
+                     id="moderator"
+                     name="accountType"/> Moderator <br></br>
+              <input type="radio"
+                     id="analyst"
+                     name="accountType" /> Analyst </div> <br></br>
+
+            {/* Form Submission Button */}
+            <div className={ style.signUpButton }
+                 onClick={(e) => props.toggleSignUpState(true, e)}>Sign Up</div>
+            <button className={ style.submitButton }>Log In</button>
           </div>
         </form>
-        <button onClick={getAll}>Get all</button>
+        <button onClick={ getAll }>Get all</button> {/* Retrieve all accounts in the database */}
       </div>
     </div>
   );

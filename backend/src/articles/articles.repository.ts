@@ -24,14 +24,9 @@ export class ArticlesRepository {
         const newArticle = new this.articleModel(article);
         return newArticle.save();
     }
-
+  
     // Update an existing article, returns updated article
-    async findOneAndUpdate(
-        articleFilterQuery: FilterQuery<Article>,
-        article: Partial<Article>,
-    ): Promise<Article> {
-        return this.articleModel.findOneAndUpdate(articleFilterQuery, article, {
-            new: true,
-        });
+    async findOneAndUpdate(articleFilterQuery: FilterQuery<Article>, article: Partial<Article>): Promise<Article> {
+        return this.articleModel.findOneAndUpdate(articleFilterQuery, article, { new: true });
     }
 }
