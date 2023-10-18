@@ -32,7 +32,6 @@ export class AuthController {
     @Get('profile')
     getProfile(@Request() req) {
         const username = req.user.username;
-        // const user = this.authService.getUserDetails(username);
         return this.authService.getUserDetails(username);
     }
 }
