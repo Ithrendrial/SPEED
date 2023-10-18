@@ -47,4 +47,5 @@
     height: 80%;
     width: fit-content;
     margin: 0 min(2vw, 3vh) 0 1vw;
+    cursor: pointer;
 }

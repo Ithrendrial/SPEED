@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { v4 as uuidv4 } from "uuid";
-import { UpdateArticleDto } from "./dto/update-article.dto";
-import { Article } from "./schema/articles.schema";
-import { ArticlesRepository } from "./articles.repository";
+import { Injectable } from '@nestjs/common';
+import { v4 as uuidv4 } from 'uuid';
+import { UpdateArticleDto } from './dto/update-article.dto';
+import { Article } from './schema/articles.schema';
+import { ArticlesRepository } from './articles.repository';
 
 @Injectable()
 export class ArticlesService {
@@ -10,7 +10,7 @@ export class ArticlesService {
 
     // Get a specified article by id
     async getArticleById(articleId: string): Promise<Article> {
-        return this.articlesRepository.findOne({ articleId })
+        return this.articlesRepository.findOne({ articleId });
     }
 
     // Get all the articles

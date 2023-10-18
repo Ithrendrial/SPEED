@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-
 import { Article } from './schema/articles.schema';
 import { ArticlesService } from './articles.service';
 
@@ -9,8 +8,7 @@ import { ArticlesService } from './articles.service';
 export class ArticlesController {
     constructor(private readonly articlesService: ArticlesService) {}
 
-
-    // Routes to interact with repository
+    // Routes to interact with repository, validation should be added here later
     @Get(':articleId')
     async getArticle(@Param('articleId') articleId: string): Promise<Article> {
         return this.articlesService.getArticleById(articleId);
@@ -41,7 +39,10 @@ export class ArticlesController {
     }
 
     @Patch(':articleId')
-    async updateArticle(@Param('articleId') articleId: string, @Body() updateArticleDto: UpdateArticleDto): Promise<Article> {
+    async updateArticle(
+        @Param('articleId') articleId: string,
+        @Body() updateArticleDto: UpdateArticleDto,
+    ): Promise<Article> {
         return this.articlesService.updateArticle(articleId, updateArticleDto);
     }
 }
