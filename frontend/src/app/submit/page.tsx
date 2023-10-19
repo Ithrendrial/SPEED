@@ -55,6 +55,7 @@ const NumberForm: React.FC = () => {
             .post('https://speed-backend-seven.vercel.app/articles', formData)
             .then((response) => {
                 console.log('Article created successfully:', response.data);
+                alert("Article successfully submitted.");
             })
             .catch((error) => {
                 console.error('Error creating article:', error);
