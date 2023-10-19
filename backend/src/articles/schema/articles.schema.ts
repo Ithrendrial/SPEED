@@ -3,7 +3,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 export type ArticleDocument = Article & Document;
 @Schema({ collection: 'Submissions' })
 export class Article {
-
     @Prop()
     articleId: string;
 
@@ -38,7 +37,7 @@ export class Article {
     @Prop({
         type: String,
         enum: ['unmoderated', 'accepted', 'rejected'],
-        default: 'unmoderated'
+        default: 'unmoderated',
     })
     moderator_status: string;
 
@@ -61,8 +60,14 @@ export class Article {
 
     @Prop({
         type: [String],
-        enum: ['strong against', 'weak against', 'neutral', 'weak support', 'strong support'],
-        default: 'neutral'
+        enum: [
+            'strong against',
+            'weak against',
+            'neutral',
+            'weak support',
+            'strong support',
+        ],
+        default: 'neutral',
     })
     support: string[];
 
