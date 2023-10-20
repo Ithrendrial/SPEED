@@ -75,8 +75,10 @@ export default function SignUp(props: LogInProps) {
         // Check if the account type is a moderator or an analyst
         if (user["radioOption"] === "moderator") {
           props.handleIsModerator(true);
+          props.handleIsAnalyst(false);
         } else if (user["radioOption"] === "analyst") {
           props.handleIsAnalyst(true);
+          props.handleIsModerator(false);
         }
 
         // Pass the logged-in username to navbar to display and close modal
