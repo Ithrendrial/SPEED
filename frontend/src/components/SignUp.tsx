@@ -32,7 +32,7 @@ export default function SignUp(props: SignUpProps) {
     )?.id;
 
     try {
-      const response = await fetch("http://localhost:3001/users/signup", {
+      const response = await fetch("https://speed-backend-seven.vercel.app/users/signup", {
         method: "POST",
         body: JSON.stringify({
           uname: username,

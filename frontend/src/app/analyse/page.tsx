@@ -87,13 +87,13 @@ export function Analyse() {
   }, [articles, selectedClaim]);
 
   const editOnClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    id
+      e: React.MouseEvent<HTMLDivElement>,
+      id: string
   ) => {
     console.log("Edit button clicked");
     console.log("Selected: ", id);
     const queryParams = new URLSearchParams({ id });
-    location.href = `http://localhost:3000/submit?${queryParams.toString()}`;
+    location.href = `https://speed-backend-seven.vercel.app/submit?${queryParams.toString()}`;
   };
 
   // Map elements in filtered articles into wanted format for the table and return the attributes displayed in the table, //
@@ -255,7 +255,7 @@ export function Analyse() {
   // Retrieve data from the database //
   useEffect(() => {
     axios
-      .get<Article[]>("http://localhost:3001/articles/retrieve/unpublished")
+      .get<Article[]>("https://speed-backend-seven.vercel.app/articles/retrieve/unpublished")
       .then((res) => {
         console.log(res.data);
         setArticles(res.data); // Create Article objects with data retrieved
@@ -333,7 +333,6 @@ export function Analyse() {
 
   return (
     <div className={style.page}>
-      <button onClick={() => getAll()}>Get All</button>
       <div className="heading">UNPUBLISHED ARTICLES</div>
       {ratingOpen ? (
         <RatingPopUp

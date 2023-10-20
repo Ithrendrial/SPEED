@@ -75,7 +75,7 @@ const NumberForm: React.FC = () => {
         publication_status: true,
       };
       axios
-        .patch(`http://localhost:3001/articles/${articleId}`, updatedStatus)
+        .patch(`https://speed-backend-seven.vercel.app/articles/${articleId}`, updatedStatus)
         .then((response) => {
           console.log("Article updated successfully:", response.data);
         })

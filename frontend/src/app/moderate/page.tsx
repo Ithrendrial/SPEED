@@ -8,6 +8,27 @@ import axios from "axios";
 import RatingPopUp from "@/components/RatingPopUp";
 import style from "../../styles/ModeratePage.module.css";
 
+interface Article {
+  // Types for Article object
+  articleId: string;
+  title: string;
+  authors: string[];
+  journal_name: string;
+  publication_date: string;
+  volume: number;
+  issue: number;
+  pages: string;
+  doi: string;
+  method: string[];
+  claim: string[];
+  research_type: string[];
+  participant_type: string[];
+  summary: string[];
+  support: string[];
+  rating: string[];
+  publication_status: boolean;
+}
+
 export function Moderate() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedMethod, setSelectedMethod] = useState<string>("");
@@ -66,8 +87,8 @@ export function Moderate() {
   }, [articles, selectedClaim]);
 
   const moderateOnClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    id
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: string
   ) => {
     console.log("Edit button clicked");
     console.log("Selected: ", id);
@@ -148,12 +169,12 @@ export function Moderate() {
         </div>
       ),
       moderate: (
-        <div
-          className={style.moderate}
-          onClick={(e) => {
-            moderateOnClick(e, article.articleId);
-          }}
-        >
+          <div
+              className={style.moderate}
+              onClick={(e) => {
+                moderateOnClick(e, article.articleId);
+              }}
+          >
           <a>Moderate</a>
         </div>
       ),
