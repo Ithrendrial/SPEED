@@ -29,7 +29,7 @@ interface Article {
   publication_status: boolean;
 }
 
-export function Moderate() {
+export default function Moderate() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedMethod, setSelectedMethod] = useState<string>("");
   const [selectedClaim, setSelectedClaim] = useState<string>("");
@@ -424,5 +424,3 @@ export function Moderate() {
     </div>
   );
 }
-
-export default Moderate;
