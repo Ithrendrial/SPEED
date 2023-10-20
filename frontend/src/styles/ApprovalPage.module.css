@@ -1,0 +1,9 @@
+.centered_div {
+  display: flex;
+  flex-direction: column;
+  padding: min(2vw, 2vh) min(4vw, 4vh) min(4vw, 4vh) min(4vw, 4vh);
+  background-color: #e5e7de;
+  border-radius: min(2vw, 2vh);
+  width: min(45vw, 50vh);
+  border: #b6aea1 1px solid;
+}

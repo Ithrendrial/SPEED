@@ -1,9 +1,18 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Query,
+} from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './schema/articles.schema';
 import { ArticlesService } from './articles.service';
 import { Public } from "../declerations/routeDeclarations";
+
 
 @Controller('articles')
 export class ArticlesController {
@@ -24,22 +33,26 @@ export class ArticlesController {
 
     @Public()
     @Post()
-    async createArticle(@Body() createArticleDto: CreateArticleDto): Promise<Article> {
-        return this.articlesService.createArticle(createArticleDto.title,
-                                                  createArticleDto.authors,
-                                                  createArticleDto.journal_name,
-                                                  createArticleDto.publication_date,
-                                                  createArticleDto.volume,
-                                                  createArticleDto.issue,
-                                                  createArticleDto.pages,
-                                                  createArticleDto.doi,
-                                                  createArticleDto.method,
-                                                  createArticleDto.claim,
-                                                  createArticleDto.research_type,
-                                                  createArticleDto.participant_type,
-                                                  createArticleDto.summary,
-                                                  createArticleDto.support,
-                                                  createArticleDto.rating)
+    async createArticle(
+        @Body() createArticleDto: CreateArticleDto,
+    ): Promise<Article> {
+        return this.articlesService.createArticle(
+            createArticleDto.title,
+            createArticleDto.authors,
+            createArticleDto.journal_name,
+            createArticleDto.publication_date,
+            createArticleDto.volume,
+            createArticleDto.issue,
+            createArticleDto.pages,
+            createArticleDto.doi,
+            createArticleDto.method,
+            createArticleDto.claim,
+            createArticleDto.research_type,
+            createArticleDto.participant_type,
+            createArticleDto.summary,
+            createArticleDto.support,
+            createArticleDto.rating,
+        );
     }
 
     @Public()
@@ -48,6 +61,22 @@ export class ArticlesController {
         @Param('articleId') articleId: string,
         @Body() updateArticleDto: UpdateArticleDto,
     ): Promise<Article> {
+        console.log('updateArticleDto: ', updateArticleDto);
         return this.articlesService.updateArticle(articleId, updateArticleDto);
+    }
+
+    @Public()
+    @Get('/retrieve/unpublished')
+    async getUnpublishedArticles(): Promise<Article[]> {
+        return this.articlesService.getUnpublishedArticles();
+    }
+
+    @Public()
+    @Get('/retrieve/unmoderated')
+    async getFilteredArticles(
+        @Query('moderator_status') moderator_status: string,
+    ): Promise<Article[]> {
+        console.log('moderator_status: ', moderator_status);
+        return this.articlesService.getFilteredArticles(moderator_status);
     }
 }
