@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import "@/styles/globals.css";
 
 interface LogInProps {
-  toggleSignUpState: (isClicked: boolean, e?: React.MouseEvent, ) => void;
+  toggleSignUpState: (isClicked: boolean, e?: React.MouseEvent) => void;
   backgroundPressed: (isClicked: boolean, e?: React.MouseEvent) => void;
   handleIsModerator: (isModerator: boolean) => void;
   handleIsAnalyst: (isModerator: boolean) => void;
@@ -34,7 +34,7 @@ export default function SignUp(props: LogInProps) {
     )?.id;
 
     if (!accountType) {
-      alert('Please select an account type (Analyst or Moderator)');
+      alert("Please select an account type (Analyst or Moderator)");
       return;
     }
 
@@ -86,14 +86,14 @@ export default function SignUp(props: LogInProps) {
         props.backgroundPressed(true);
 
         // If login details are incorrect, display prompt
-        } else if (user.message === "Unauthorized" && user.statusCode === 401) {
-            alert("Incorrect Login Details");
-        } else {
-            console.log("Unknown response");
-        }
-      } catch (error) {
-            console.error("Error:", error);
+      } else if (user.message === "Unauthorized" && user.statusCode === 401) {
+        alert("Incorrect Login Details");
+      } else {
+        console.log("Unknown response");
       }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   // Retrieve all account data from the database //
@@ -112,23 +112,23 @@ export default function SignUp(props: LogInProps) {
       className={style.background}
       onClick={(e) => props.backgroundPressed(true, e)}
     >
-      <div className={ style.signInFormContainer }>
+      <div className={style.signInFormContainer}>
         <form
-          className={ style.signInForm }
-          onSubmit={ signIn }
-          onClick={ (e) => e.stopPropagation() }
+          className={style.signInForm}
+          onSubmit={signIn}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div className={ style.heading }>SPEED</div>
-          <div className={ style.subheading }>Log in</div>
+          <div className={style.heading}>SPEED</div>
+          <div className={style.subheading}>Log in</div>
           <input
-            className={ style.input }
+            className={style.input}
             type="text"
             placeholder="Username"
             value={username}
             onChange={handleUsernameChange}
           />
           <input
-            className={ style.input }
+            className={style.input}
             type="password"
             placeholder="Password"
             value={password}
@@ -141,21 +141,33 @@ export default function SignUp(props: LogInProps) {
               alignItems: "end",
             }}
           >
-            <div> {/* Account type selection (Moderator or Analyst) */}
-              <input type="radio"
-                     id="moderator"
-                     name="accountType"/> Moderator <br></br>
-              <input type="radio"
-                     id="analyst"
-                     name="accountType" /> Analyst </div> <br></br>
-
+            <div>
+              {" "}
+              {/* Account type selection (Moderator or Analyst) */}
+              <input
+                type="radio"
+                id="moderator"
+                name="accountType"
+              /> Moderator <br></br>
+              <input
+                type="radio"
+                id="analyst"
+                name="accountType"
+              /> Analyst{" "}
+            </div>{" "}
+            <br></br>
             {/* Form Submission Button */}
-            <div className={ style.signUpButton }
-                 onClick={(e) => props.toggleSignUpState(true, e)}>Sign Up</div>
-            <button className={ style.submitButton }>Log In</button>
+            <div
+              className={style.signUpButton}
+              onClick={(e) => props.toggleSignUpState(true, e)}
+            >
+              Sign Up
+            </div>
+            <button className={style.submitButton}>Log In</button>
           </div>
         </form>
-        <button onClick={ getAll }>Get all</button> {/* Retrieve all accounts in the database */}
+        <button onClick={getAll}>Get all</button>{" "}
+        {/* Retrieve all accounts in the database */}
       </div>
     </div>
   );
