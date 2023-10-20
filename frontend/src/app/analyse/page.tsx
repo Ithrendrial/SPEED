@@ -29,7 +29,7 @@ interface Article {
   publication_status: boolean;
 }
 
-export function Analyse() {
+export default function Analyse() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedMethod, setSelectedMethod] = useState<string>("");
   const [selectedClaim, setSelectedClaim] = useState<string>("");
