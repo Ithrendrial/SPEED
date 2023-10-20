@@ -63,7 +63,6 @@ export class ArticlesService {
         articleId: string,
         articleUpdates: UpdateArticleDto,
     ): Promise<Article> {
-        console.log(articleUpdates);
         return this.articlesRepository.findOneAndUpdate(
             { articleId },
             articleUpdates,
@@ -72,5 +71,10 @@ export class ArticlesService {
 
     async getUnpublishedArticles(): Promise<Article[]> {
         return this.articlesRepository.find({ publication_status: false });
+    }
+
+    async getFilteredArticles(filter: string): Promise<Article[]> {
+        console.log('Filter: ', filter);
+        return this.articlesRepository.find({ moderator_status: filter });
     }
 }

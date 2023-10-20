@@ -53,14 +53,6 @@ export function Analyse() {
     }
   }
 
-  async function getAll() {
-    fetch("http://localhost:3001/articles")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }
-
   useEffect(() => {
     // Parse the query parameters from the URL
     const queryParams = new URLSearchParams(window.location.search);
