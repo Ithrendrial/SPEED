@@ -11,14 +11,15 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { Article } from './schema/articles.schema';
 import { ArticlesService } from './articles.service';
-import { Public } from '../declerations/routeDeclarations';
-// import { async } from 'rxjs';
+import { Public } from "../declerations/routeDeclarations";
+
 
 @Controller('articles')
 export class ArticlesController {
     constructor(private readonly articlesService: ArticlesService) {}
 
     // Routes to interact with repository, validation should be added here later
+    @Public()
     @Get(':articleId')
     async getArticle(@Param('articleId') articleId: string): Promise<Article> {
         return this.articlesService.getArticleById(articleId);
