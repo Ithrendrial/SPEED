@@ -415,5 +415,3 @@ export function Analyse() {
     </div>
   );
 }
-
-export default Analyse;
