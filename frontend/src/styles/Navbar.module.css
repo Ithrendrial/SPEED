@@ -1,4 +1,6 @@
 .bar {
+    position: fixed;
+    top: 0;
     height: min(10vw, 9vh);
     width: 100%;
     display: flex;
