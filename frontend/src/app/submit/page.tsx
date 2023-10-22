@@ -49,41 +49,88 @@ const initialFormData: FormData = {
 const NumberForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
+  const [doiValid, setDOIValid] = useState<boolean>(false);
+  const [pagesValid, setPagesValid] = useState<boolean>(false);
+
+  // Temporary Successful Submission Feedback//
+  const [responseVisible, setResponseVisible] = useState<boolean>(false);
+  const [responseText, setResponseText] = useState<string>("");
+
+  function displayResponse(successful: boolean) {
+    setResponseVisible(true);
+
+    if(successful) {
+      setResponseText("Submission Successful!")
+    } else {
+      setResponseText("Submission Unsuccessful :( Please try again.")
+    }
+    setTimeout(() => {
+      setResponseVisible(false);
+    }, 1500); // Display submission form response for 1.5s to the user
+  }
+
+  // Form Validations //
+  const validateDOI = () => { // Validate doi link input
+    const doiPattern = /(10[.][0-9]{4,}[^\s"\/<>]*\/[^\s"<>]+)/;
+    if (!doiPattern.test(formData.doi)) {
+      setDOIValid(false);
+      alert('DOI is invalid. Please input a valid DOI link.');
+    } else {
+      setDOIValid(true); // DOI link is valid
+    }
+  };
+
+  const validatePages = () => { // Validate page number input
+    const pagesPattern = /^\d+(?:-\d+)?$|^\d+ - \d+$/;
+    if (!pagesPattern.test(formData.pages)) {
+      setPagesValid(false);
+      alert("Page(s) is invalid. Please input pages as a number, or for a page range separate the page numbers with a ' - '");
+    } else {
+      setPagesValid(true); // DOI link is valid
+    }
+  };
+
   // Handle submit article button press //
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    validateDOI();
+    validatePages();
 
-    // get params from url
-    // const location = useLocation();
-    const queryParams = new URLSearchParams(window.location.search);
-    const articleId = queryParams.get("id");
+    if(doiValid && pagesValid) {
+      // get params from url
+      const queryParams = new URLSearchParams(window.location.search);
+      const articleId = queryParams.get("id");
 
-    console.log(articleId);
+      console.log(articleId);
 
-    // check for if updating a article or editing by checking if there is a articleId in the url
-    if (location.search === "") {
-      axios
-        .post("https://speed-backend-seven.vercel.app/articles/", formData)
-        .then((response) => {
-          console.log("Article created successfully:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error creating article:", error);
-        });
-    } else {
-      const updatedStatus = {
-        publication_status: true,
-      };
-      axios
-        .patch(`https://speed-backend-seven.vercel.app/articles/${articleId}`, updatedStatus)
-        .then((response) => {
-          console.log("Article updated successfully:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error updating article:", error);
-        });
+      // check for if updating an article or editing by checking if there is a articleId in the url
+      if (location.search === "") {
+        axios
+          .post("https://speed-backend-seven.vercel.app/articles/", formData)
+          .then((response) => {
+            displayResponse(true);
+            console.log("Article created successfully:", response.data);
+          })
+          .catch((error) => {
+            displayResponse(false);
+            console.error("Error creating article:", error);
+          });
+      } else {
+        const updatedStatus = {
+          publication_status: true,
+        };
+        axios
+          .patch(`https://speed-backend-seven.vercel.app/articles/${articleId}`, updatedStatus)
+          .then((response) => {
+            alert("Article submitted!");
+            console.log("Article updated successfully:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error updating article:", error);
+          });
+      }
     }
-  };
+  }
 
   // Update authors list with added author field //
   const handleChange = (
@@ -252,6 +299,8 @@ const NumberForm: React.FC = () => {
             />
           </label>
           <div className={style.submit_button_wrapper}>
+            {responseVisible ?
+              <div className={style.submission_response}>{ responseText }</div> : <div className={style.submission_response} />}
             <div className={style.submit_button}>
               <button type="submit">Submit</button>
             </div>

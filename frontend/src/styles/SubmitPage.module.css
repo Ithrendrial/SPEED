@@ -11,8 +11,15 @@
 
 .submit_button_wrapper {
     display: flex;
-    justify-content: flex-end;
     margin-top: 2vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submission_response {
+    color: #334C1F;
+    font-weight: 700;
+    height: fit-content;
 }
 
 .submit_button {
