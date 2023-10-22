@@ -72,21 +72,21 @@ const NumberForm: React.FC = () => {
   // Form Validations //
   const validateDOI = () => { // Validate doi link input
     const doiPattern = /(10[.][0-9]{4,}[^\s"\/<>]*\/[^\s"<>]+)/;
-    if (!doiPattern.test(formData.doi)) {
-      setDOIValid(false);
-      alert('DOI is invalid. Please input a valid DOI link.');
-    } else {
+    if (doiPattern.test(formData.doi)) {
       setDOIValid(true); // DOI link is valid
+    } else {
+      setDOIValid(false); // DOI link is invalid
+      alert('DOI is invalid. Please input a valid DOI link.');
     }
   };
 
   const validatePages = () => { // Validate page number input
     const pagesPattern = /^\d+(?:-\d+)?$|^\d+ - \d+$/;
-    if (!pagesPattern.test(formData.pages)) {
-      setPagesValid(false);
-      alert("Page(s) is invalid. Please input pages as a number, or for a page range separate the page numbers with a ' - '");
+    if (formData.pages === "" || pagesPattern.test(formData.pages)) {
+      setPagesValid(true); // Pages input is valid.
     } else {
-      setPagesValid(true); // DOI link is valid
+      setPagesValid(false); // Pages input is invalid.
+      alert("Page(s) is invalid. Please input pages as a number, or for a page range separate the page numbers with a ' - '");
     }
   };
 
