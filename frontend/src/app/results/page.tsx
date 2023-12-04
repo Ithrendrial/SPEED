@@ -198,7 +198,7 @@ function Results() {
     // Retrieve data from the database //
     useEffect(() => {
         axios
-            .get<Article[]>('https://speed-backend-seven.vercel.app/articles')
+            .get<Article[]>('https://speed-backend-eight.vercel.app/articles')
             .then((res) => {
                 setArticles(res.data); // Create Article objects with data retrieved
             })

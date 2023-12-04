@@ -93,7 +93,7 @@ export default function Analyse() {
     console.log("Edit button clicked");
     console.log("Selected: ", id);
     const queryParams = new URLSearchParams({ id });
-    location.href = `https://speed-backend-seven.vercel.app/submit?${queryParams.toString()}`;
+    location.href = `https://speed-backend-eight.vercel.app/submit?${queryParams.toString()}`;
   };
 
   // Map elements in filtered articles into wanted format for the table and return the attributes displayed in the table, //
@@ -255,7 +255,7 @@ export default function Analyse() {
   // Retrieve data from the database //
   useEffect(() => {
     axios
-      .get<Article[]>("https://speed-backend-seven.vercel.app/articles/retrieve/unpublished")
+      .get<Article[]>("https://speed-backend-eight.vercel.app/articles/retrieve/unpublished")
       .then((res) => {
         console.log(res.data);
         setArticles(res.data); // Create Article objects with data retrieved

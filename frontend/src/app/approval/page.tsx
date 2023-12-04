@@ -13,7 +13,7 @@ const Approval: React.FC = () => {
       moderator_status: "unmoderated",
     };
     axios
-      .patch(`https://speed-backend-seven.vercel.app/articles/${articleId}`, updatedStatus)
+      .patch(`https://speed-backend-eight.vercel.app/articles/${articleId}`, updatedStatus)
       .then((res) => {
         console.log(res);
       })
@@ -29,7 +29,7 @@ const Approval: React.FC = () => {
       moderator_status: "moderated",
     };
     axios
-      .patch(`https://speed-backend-seven.vercel.app/articles/${articleId}`, updatedStatus)
+      .patch(`https://speed-backend-eight.vercel.app/articles/${articleId}`, updatedStatus)
       .then((res) => {
         console.log(res);
       })

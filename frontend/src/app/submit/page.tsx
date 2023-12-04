@@ -106,7 +106,7 @@ const NumberForm: React.FC = () => {
       // check for if updating an article or editing by checking if there is a articleId in the url
       if (location.search === "") {
         axios
-          .post("https://speed-backend-seven.vercel.app/articles/", formData)
+          .post("https://speed-backend-eight.vercel.app/articles/", formData)
           .then((response) => {
             displayResponse(true);
             console.log("Article created successfully:", response.data);
@@ -120,7 +120,7 @@ const NumberForm: React.FC = () => {
           publication_status: true,
         };
         axios
-          .patch(`https://speed-backend-seven.vercel.app/articles/${articleId}`, updatedStatus)
+          .patch(`https://speed-backend-eight.vercel.app/articles/${articleId}`, updatedStatus)
           .then((response) => {
             alert("Article submitted!");
             console.log("Article updated successfully:", response.data);
